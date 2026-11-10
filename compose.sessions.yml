@@ -1,0 +1,12 @@
+services:
+  sessions:
+    image: redis:8.2-alpine
+    command: [sh, -c, 'exec redis-server --requirepass "$$REDIS_PASSWORD" --save "" --appendonly no --maxmemory 128mb --maxmemory-policy noeviction']
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?Generate a private session password}
+    ports: ["127.0.0.1:56381:6379"]
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    read_only: true
+    tmpfs: [/data]

@@ -1,0 +1,21 @@
+name: parent-portal
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: sh scripts/yarn.sh install --immutable
+      - run: sh scripts/yarn.sh typecheck
+      - run: sh scripts/yarn.sh lint
+      - run: sh scripts/yarn.sh test
+      - run: sh scripts/yarn.sh build
+      - run: python3 -B -m unittest discover -s scripts -p 'test_*.py' -v
+      - run: sh scripts/yarn.sh npm audit --recursive --environment production
+# Cross-repository api:check and real Keycloak/PostgreSQL/Redis browser acceptance
+# run with the pinned backend checkout as documented in README. No fake auth in CI.

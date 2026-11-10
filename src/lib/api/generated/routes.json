@@ -1,0 +1,746 @@
+[
+  {
+    "method": "GET",
+    "path": "/health/live"
+  },
+  {
+    "method": "GET",
+    "path": "/health/ready"
+  },
+  {
+    "method": "GET",
+    "path": "me"
+  },
+  {
+    "method": "GET",
+    "path": "school"
+  },
+  {
+    "method": "PUT",
+    "path": "school"
+  },
+  {
+    "method": "POST",
+    "path": "campuses"
+  },
+  {
+    "method": "GET",
+    "path": "campuses"
+  },
+  {
+    "method": "POST",
+    "path": "academic-years"
+  },
+  {
+    "method": "GET",
+    "path": "academic-years"
+  },
+  {
+    "method": "POST",
+    "path": "terms"
+  },
+  {
+    "method": "GET",
+    "path": "terms"
+  },
+  {
+    "method": "POST",
+    "path": "curricula"
+  },
+  {
+    "method": "GET",
+    "path": "curricula"
+  },
+  {
+    "method": "POST",
+    "path": "programs"
+  },
+  {
+    "method": "GET",
+    "path": "programs"
+  },
+  {
+    "method": "POST",
+    "path": "grade-levels"
+  },
+  {
+    "method": "GET",
+    "path": "grade-levels"
+  },
+  {
+    "method": "POST",
+    "path": "subjects"
+  },
+  {
+    "method": "GET",
+    "path": "subjects"
+  },
+  {
+    "method": "POST",
+    "path": "sections"
+  },
+  {
+    "method": "GET",
+    "path": "sections"
+  },
+  {
+    "method": "POST",
+    "path": "courses"
+  },
+  {
+    "method": "GET",
+    "path": "courses"
+  },
+  {
+    "method": "POST",
+    "path": "teaching-assignments"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-assignments"
+  },
+  {
+    "method": "POST",
+    "path": "persons"
+  },
+  {
+    "method": "POST",
+    "path": "students"
+  },
+  {
+    "method": "GET",
+    "path": "students"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}"
+  },
+  {
+    "method": "PUT",
+    "path": "students/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "guardians"
+  },
+  {
+    "method": "POST",
+    "path": "staff"
+  },
+  {
+    "method": "GET",
+    "path": "staff"
+  },
+  {
+    "method": "POST",
+    "path": "students/{id}/guardians"
+  },
+  {
+    "method": "POST",
+    "path": "students/{id}/guardians/{relationshipID}/restrict"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/enrollments"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments/{id}/transitions"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments/{id}/sections"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments/{id}/courses"
+  },
+  {
+    "method": "GET",
+    "path": "calendar-settings"
+  },
+  {
+    "method": "PUT",
+    "path": "calendar-settings"
+  },
+  {
+    "method": "POST",
+    "path": "calendar-exceptions"
+  },
+  {
+    "method": "GET",
+    "path": "calendar-exceptions"
+  },
+  {
+    "method": "POST",
+    "path": "grading-schemes"
+  },
+  {
+    "method": "GET",
+    "path": "grading-schemes"
+  },
+  {
+    "method": "POST",
+    "path": "grading-schemes/{id}/bands"
+  },
+  {
+    "method": "GET",
+    "path": "grading-schemes/{id}/bands"
+  },
+  {
+    "method": "POST",
+    "path": "grade-scheme-assignments"
+  },
+  {
+    "method": "POST",
+    "path": "identity-links"
+  },
+  {
+    "method": "POST",
+    "path": "role-grants"
+  },
+  {
+    "method": "GET",
+    "path": "role-grants"
+  },
+  {
+    "method": "POST",
+    "path": "role-grants/{id}/revoke"
+  },
+  {
+    "method": "GET",
+    "path": "me/grants"
+  },
+  {
+    "method": "GET",
+    "path": "persons/{id}"
+  },
+  {
+    "method": "PUT",
+    "path": "persons/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "staff/{id}/transitions"
+  },
+  {
+    "method": "POST",
+    "path": "academic-years/{id}/transitions"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments/{id}/sections/{placementID}/close"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments/{id}/courses/{placementID}/close"
+  },
+  {
+    "method": "PUT",
+    "path": "campuses/{id}/status"
+  },
+  {
+    "method": "POST",
+    "path": "enrollments/{id}/transfers"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/rooms"
+  },
+  {
+    "method": "GET",
+    "path": "timetable/rooms"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/periods"
+  },
+  {
+    "method": "GET",
+    "path": "timetable/periods"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/rules"
+  },
+  {
+    "method": "GET",
+    "path": "timetable/rules"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/rules/{id}/generate"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/rules/{id}/retire"
+  },
+  {
+    "method": "GET",
+    "path": "lessons"
+  },
+  {
+    "method": "PUT",
+    "path": "lessons/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "attendance/daily-teachers"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-sessions"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-sessions"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-sessions/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-sessions/{id}/submit"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-sessions/{id}/approve"
+  },
+  {
+    "method": "PUT",
+    "path": "attendance-records/{id}/mark"
+  },
+  {
+    "method": "PUT",
+    "path": "attendance-records/{id}/correct"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-records/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/attendance"
+  },
+  {
+    "method": "POST",
+    "path": "absence-reports"
+  },
+  {
+    "method": "GET",
+    "path": "absence-reports"
+  },
+  {
+    "method": "POST",
+    "path": "absence-reports/{id}/review"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-records/{id}/correction-requests"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-corrections/{id}/review"
+  },
+  {
+    "method": "GET",
+    "path": "reports/attendance"
+  },
+  {
+    "method": "POST",
+    "path": "announcements"
+  },
+  {
+    "method": "GET",
+    "path": "announcements"
+  },
+  {
+    "method": "POST",
+    "path": "announcements/{id}/publish"
+  },
+  {
+    "method": "POST",
+    "path": "announcements/{id}/archive"
+  },
+  {
+    "method": "POST",
+    "path": "conversations"
+  },
+  {
+    "method": "GET",
+    "path": "conversations"
+  },
+  {
+    "method": "POST",
+    "path": "conversations/{id}/close"
+  },
+  {
+    "method": "POST",
+    "path": "conversations/{id}/messages"
+  },
+  {
+    "method": "GET",
+    "path": "conversations/{id}/messages"
+  },
+  {
+    "method": "POST",
+    "path": "conversations/{id}/attachments"
+  },
+  {
+    "method": "GET",
+    "path": "message-attachments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "notification-preferences"
+  },
+  {
+    "method": "PUT",
+    "path": "notification-preferences"
+  },
+  {
+    "method": "GET",
+    "path": "notification-templates"
+  },
+  {
+    "method": "PUT",
+    "path": "notification-templates/{code}"
+  },
+  {
+    "method": "GET",
+    "path": "notifications"
+  },
+  {
+    "method": "POST",
+    "path": "notifications/{id}/read"
+  },
+  {
+    "method": "GET",
+    "path": "notification-deliveries"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-corrections"
+  },
+  {
+    "method": "GET",
+    "path": "lessons/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "notification-deliveries/{id}/attempts"
+  },
+  {
+    "method": "GET",
+    "path": "me/children"
+  },
+  {
+    "method": "GET",
+    "path": "me/student"
+  },
+  {
+    "method": "GET",
+    "path": "learning-courses"
+  },
+  {
+    "method": "POST",
+    "path": "learning-content"
+  },
+  {
+    "method": "GET",
+    "path": "learning-content"
+  },
+  {
+    "method": "GET",
+    "path": "learning-content/{id}"
+  },
+  {
+    "method": "PUT",
+    "path": "learning-content/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "learning-content/{id}/publish"
+  },
+  {
+    "method": "POST",
+    "path": "learning-content/{id}/archive"
+  },
+  {
+    "method": "POST",
+    "path": "assignments"
+  },
+  {
+    "method": "GET",
+    "path": "assignments"
+  },
+  {
+    "method": "GET",
+    "path": "assignments/{id}"
+  },
+  {
+    "method": "PUT",
+    "path": "assignments/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "assignments/{id}/transition"
+  },
+  {
+    "method": "GET",
+    "path": "assignments/{id}/recipients"
+  },
+  {
+    "method": "GET",
+    "path": "assignments/{id}/history"
+  },
+  {
+    "method": "POST",
+    "path": "assignments/{id}/files"
+  },
+  {
+    "method": "POST",
+    "path": "learning-content/{id}/files"
+  },
+  {
+    "method": "GET",
+    "path": "learning-files/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/assignment-summary"
+  },
+  {
+    "method": "GET",
+    "path": "me/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "me/assignment-summary"
+  },
+  {
+    "method": "GET",
+    "path": "assignment-recipients/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "assignment-recipients/{id}/submissions"
+  },
+  {
+    "method": "GET",
+    "path": "assignment-recipients/{id}/submissions"
+  },
+  {
+    "method": "POST",
+    "path": "assignment-recipients/{id}/feedback"
+  },
+  {
+    "method": "GET",
+    "path": "assignment-recipients/{id}/feedback"
+  },
+  {
+    "method": "PUT",
+    "path": "assignment-recipients/{id}/accommodation"
+  },
+  {
+    "method": "POST",
+    "path": "grading-policies"
+  },
+  {
+    "method": "GET",
+    "path": "grading-policies"
+  },
+  {
+    "method": "GET",
+    "path": "grading-policies/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "reporting-periods"
+  },
+  {
+    "method": "GET",
+    "path": "reporting-periods"
+  },
+  {
+    "method": "POST",
+    "path": "reporting-periods/{id}/transition"
+  },
+  {
+    "method": "POST",
+    "path": "assessments"
+  },
+  {
+    "method": "GET",
+    "path": "assessments"
+  },
+  {
+    "method": "GET",
+    "path": "assessments/{id}"
+  },
+  {
+    "method": "PUT",
+    "path": "assessments/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "assessments/{id}/publish"
+  },
+  {
+    "method": "POST",
+    "path": "assessments/{id}/grades"
+  },
+  {
+    "method": "GET",
+    "path": "assessments/{id}/grades"
+  },
+  {
+    "method": "PUT",
+    "path": "grades/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "grades/{id}/transition"
+  },
+  {
+    "method": "POST",
+    "path": "grades/{id}/amendments"
+  },
+  {
+    "method": "GET",
+    "path": "grades/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "gradebook"
+  },
+  {
+    "method": "GET",
+    "path": "reports/academic"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/academic-grades"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/academic-progress"
+  },
+  {
+    "method": "GET",
+    "path": "students/{id}/report-cards"
+  },
+  {
+    "method": "GET",
+    "path": "me/academic-grades"
+  },
+  {
+    "method": "GET",
+    "path": "me/academic-progress"
+  },
+  {
+    "method": "GET",
+    "path": "me/report-cards"
+  },
+  {
+    "method": "GET",
+    "path": "progress-comments"
+  },
+  {
+    "method": "POST",
+    "path": "progress-comments"
+  },
+  {
+    "method": "PUT",
+    "path": "progress-comments/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "report-definitions"
+  },
+  {
+    "method": "GET",
+    "path": "report-definitions"
+  },
+  {
+    "method": "POST",
+    "path": "report-cards"
+  },
+  {
+    "method": "GET",
+    "path": "report-cards"
+  },
+  {
+    "method": "GET",
+    "path": "report-cards/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "report-cards/{id}/transition"
+  },
+  {
+    "method": "GET",
+    "path": "report-cards/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "management/overview"
+  },
+  {
+    "method": "GET",
+    "path": "management/students"
+  },
+  {
+    "method": "GET",
+    "path": "management/students/{id}/context"
+  },
+  {
+    "method": "GET",
+    "path": "management/search"
+  },
+  {
+    "method": "GET",
+    "path": "management/students/{id}/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "learning-courses/{id}/classes"
+  },
+  {
+    "method": "GET",
+    "path": "learning-courses/{id}/roster"
+  },
+  {
+    "method": "GET",
+    "path": "communication-contacts"
+  },
+  {
+    "method": "GET",
+    "path": "assessments/{id}/roster"
+  },
+  {
+    "method": "GET",
+    "path": "guardian/children"
+  },
+  {
+    "method": "GET",
+    "path": "guardian/children/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "guardian/profile"
+  },
+  {
+    "method": "GET",
+    "path": "guardian/children/{id}/contacts"
+  }
+]

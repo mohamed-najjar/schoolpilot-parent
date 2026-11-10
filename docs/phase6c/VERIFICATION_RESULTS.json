@@ -1,0 +1,639 @@
+{
+  "phase": "6C",
+  "recorded_utc": "2026-11-10T08:31:47.070499+00:00",
+  "scope": "local independent review; no production-readiness or hosted-CI claim",
+  "baselines": {
+    "schoolpilot": "64e9dd5bb39fd6c9f8261f97437783132abd8b10",
+    "schoolpilot-parent": "empty remote main",
+    "schoolpilot-teacher": "84d8bd38499dc300b69069eec0ff409a8eef7268",
+    "schoolpilot-mgmt": "2902f0905b0b3f35bc3f1360475ea898a54487f1"
+  },
+  "backend_race": {
+    "command": "go test -race -tags=integration -json -count=1 ./...",
+    "root_tests": 118,
+    "test_subtest_pass_events": 231,
+    "failed_test_cases": 0,
+    "skipped_test_cases": 0,
+    "integration_seconds": 286.868,
+    "packages_with_tests": 13,
+    "packages_without_tests": 23
+  },
+  "backend_static_and_generated": [
+    {
+      "name": "staticcheck",
+      "command": [
+        "go",
+        "run",
+        "honnef.co/go/tools/cmd/staticcheck@v0.8.2",
+        "-tags=integration",
+        "./..."
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:20:42.904776+00:00"
+    },
+    {
+      "name": "govulncheck",
+      "command": [
+        "go",
+        "run",
+        "golang.org/x/vuln/cmd/govulncheck@v1.1.4",
+        "./..."
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:20:52.494999+00:00"
+    },
+    {
+      "name": "generated",
+      "command": [
+        "python3",
+        "-B",
+        "scripts/verify_generated.py"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:01.119118+00:00"
+    },
+    {
+      "name": "python",
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:11.102687+00:00"
+    }
+  ],
+  "vet_exit_code": 0,
+  "frontend_checks": [
+    {
+      "name": "install",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "install",
+        "--immutable"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:39.089023+00:00",
+      "finished_utc": "2026-11-10T08:21:40.752027+00:00"
+    },
+    {
+      "name": "api-generate",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "api:generate"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:40.752920+00:00",
+      "finished_utc": "2026-11-10T08:21:42.423351+00:00"
+    },
+    {
+      "name": "api-check",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "api:check"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:42.423962+00:00",
+      "finished_utc": "2026-11-10T08:21:43.889537+00:00"
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:43.890078+00:00",
+      "finished_utc": "2026-11-10T08:21:47.387199+00:00"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "lint"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:47.387727+00:00",
+      "finished_utc": "2026-11-10T08:21:50.980528+00:00"
+    },
+    {
+      "name": "unit",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "test"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:50.981194+00:00",
+      "finished_utc": "2026-11-10T08:21:56.548751+00:00"
+    },
+    {
+      "name": "python",
+      "command": [
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:56.549236+00:00",
+      "finished_utc": "2026-11-10T08:21:56.613828+00:00"
+    },
+    {
+      "name": "audit",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "npm",
+        "audit",
+        "--environment",
+        "production",
+        "--recursive",
+        "--json"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:56.625226+00:00",
+      "finished_utc": "2026-11-10T08:21:58.580924+00:00"
+    },
+    {
+      "name": "build",
+      "command": [
+        "sh",
+        "scripts/yarn.sh",
+        "build"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-11-10T08:21:58.581502+00:00",
+      "finished_utc": "2026-11-10T08:22:06.591377+00:00"
+    }
+  ],
+  "frontend_final_unit": {
+    "tests": 26,
+    "files": 9,
+    "status": "PASS",
+    "note": "Added escaped display text test after complete build; final unit/type/lint rerun passes. Application build inputs unchanged."
+  },
+  "clean_install": {
+    "command": "sh scripts/yarn.sh install --immutable",
+    "empty_node_modules_before": true,
+    "exit_code": 0,
+    "inputs": {
+      "package.json": "fc858047e98ff77db039001bfbcaca0322ca2137e9ba3cca63f27f6331a203c2",
+      "yarn.lock": "67242efa02b9cb10a6fba504bc2fd5154dc472c81dd176cd335bc9cb173ee086",
+      ".yarnrc.yml": "473e6def86fc03638120e0c01d0c8bbab095677256460fa4ea763e5d4697f270",
+      "scripts/yarn.sh": "20095a0aa7403a54ab37e4bb2e4cda950a22f4481df3e494d6413f9c36294702"
+    }
+  },
+  "browser_full": {
+    "startTime": "2026-11-10T08:22:22.241Z",
+    "duration": 343913.166,
+    "expected": 26,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browser_visual_recapture": {
+    "startTime": "2026-11-10T08:28:32.703Z",
+    "duration": 11718.693,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "accessibility": {
+    "full_suite_scans": 310,
+    "visual_recapture_scans": 6,
+    "total_final_scans": 316,
+    "violations": 0,
+    "widths": [
+      1440,
+      1280,
+      768,
+      430,
+      390,
+      360,
+      320
+    ],
+    "languages": [
+      "en",
+      "ar"
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ]
+  },
+  "real_identity": {
+    "assertions": 91,
+    "status": "PASS"
+  },
+  "fixture": {
+    "retained_teacher_daily_assertions": 223,
+    "additional_parent_setup_assertions": 50,
+    "immutable_identity_count": 1,
+    "schools": 2,
+    "children": 3
+  },
+  "teacher_unchanged_checks": [
+    {
+      "check": "typecheck",
+      "exit_code": 0
+    },
+    {
+      "check": "lint",
+      "exit_code": 0
+    },
+    {
+      "check": "test",
+      "exit_code": 0
+    }
+  ],
+  "management_unchanged_checks": [
+    {
+      "check": "typecheck",
+      "exit_code": 0
+    },
+    {
+      "check": "lint",
+      "exit_code": 0
+    },
+    {
+      "check": "test",
+      "exit_code": 0
+    }
+  ],
+  "diagnostics_retained": [
+    "Actual failing-before attendance privacy reproduction; invalid immutable-roster setup separately rejected.",
+    "Initial full race run had overlong fixture student number; constraint unchanged, final full run passes.",
+    "Fixture period sealing/year payload errors corrected using real lifecycle.",
+    "First browser run 22 pass / 4 fail; stale message refresh corrected plus three test/helper issues.",
+    "Refresh unit partial-mock error corrected; final 26 pass.",
+    "Staticcheck initial sandbox DNS failure corrected with permitted network access."
+  ],
+  "raw_evidence_log_sha256": {
+    "attendance-before.log": "a368aa2fdbc9c84d98e45a140f8d4e6a3f5781c23474dd763ed3cada70afecc0",
+    "attendance-before-valid.log": "a39ef480797e24e9808d65bb86723aab18c7157bb78184faf9c31f6cc7e2ec73",
+    "backend-race-first.jsonl": "aa6eb48c873aede388855d94d50178ee052a8d2cc99a0a3306904a1b41f3ed31",
+    "backend-race-final.jsonl": "b9a886a8e81658d88581314edd3d14e121eb2e26096cd36147f300dce0e30e3a",
+    "guardian-targeted2.log": "f83e2333b42459e9083b7143adf2e4a83e44512ee25b50add9e6ea350f1ae1e1",
+    "pagination-fixture-after.log": "badbc0e50d5724b5ae8e47631215b94881c0d82ffbdb3e71c5c4c1781c785290",
+    "backend-staticcheck.log": "59b8cd201e0ee6c701d958997c72cb6427564cbce77d08a68fd94e057f1f0986",
+    "backend-staticcheck-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend-govulncheck-final.log": "3016e51e4eac0d421674d2128bbbdefb2924b4646e0c14a1ab034977ad73fae5",
+    "backend-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend-generated-final.log": "302c915f2fd21e96822cb669357978900cb395e7365830d8d102cbdea8954538",
+    "backend-python-final.log": "eeb2617ccef861882e872287d55deec44decf7971fa52eb251d100c8d09c3794",
+    "compose-first.log": "73f618fb334394ca90fae6906ceab099d80a29d183d60e31464bf522d6fff468",
+    "compose-final.log": "e87215979ddd48e14feaf19fbdc24c3522a16e28de6e4d13e40991c4d936cede",
+    "multi-role-final.json": "579d0988610fa46fe8afbfaee8cc0da38723227911516fcec3f2af723fb9ee45",
+    "fixture-family.log": "3d990aab1839b254dc345b2a0b05fc8a6b8d7359bbb6348032e2ebafdfe644bd",
+    "fixture-family2.log": "81dd155a8c0b2c1b8664388cc9b0d075e591e335a94c61b25cedbc20fe58d289",
+    "fixture-family3.log": "ddbc6d5fe2b673e09b8495c571e012cf3fe31f3aa112db401c01f9c87e4005ee",
+    "browser-initial-results.json": "641849eae38a5789589fe302a7514b1e35a29e663f508dc7541264ce67d07713",
+    "browser-final-results.json": "5938ba442a62d0a1767bb5990e7dd0ef946525dcdfb3bdb67c8d32718d354daf",
+    "browser-visual-results.json": "933af93d9fcba5e37d1fc56bd8d52c0e3f3f8e58f0791020fde6ce2913960c7e",
+    "frontend-install-final.log": "c28acc1518b9e8ee9e6e51301af191ec24d165e8d62a30c4c3a2d07bb6c97486",
+    "frontend-api-check-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend-typecheck-final.log": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a",
+    "frontend-lint-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frontend-unit-final.log": "f4d1bc532738531e17aa8eda99c3923a1f1439939c3acf0b154c67ac2b7bbcdf",
+    "frontend-build-final.log": "33db6da7a4bd12145263c8f130da60255bde5868cea51205e90c8d64c29dae24",
+    "frontend-python-final.log": "d081431ef7c2709730975728992d3bd0bd100562804d11a3509b562928bf0dcb",
+    "frontend-audit-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "unit-refresh.log": "a55ec65d83768f373af999806f2ff0ca66c243488ebc61c0fe91c10a5136f591",
+    "unit-refresh2.log": "06d17296eed261ddef09cac88b4eb83c31cf41b00bee319092c4511c7af03a61",
+    "clean-install.json": "4e64061ee5c64fdf1bde00febe723d7de2e364790c0f532e8771f4a470512d7a",
+    "teacher-typecheck.log": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a",
+    "teacher-lint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "teacher-test.log": "d439c71f9a76a7ac53250c94c8d3ceeab83988c75c194afc7ee394cf25965147",
+    "management-typecheck.log": "adba4af9194e10e47dda75ff0fd0f8c2b756474896d0eba5612799c527ff372a",
+    "management-lint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "management-test.log": "3a661ced99b40f2a4ad3289e9c22f2b197317c241f7a07e4a7fc7ff81ad79d2c",
+    "peer-requirements.log": "ffabe1eac0cbc17ecfac5114d26ad19e55d04ee55cae3e9cb57c7b51c1a1ea0f"
+  },
+  "source_file_sha256": {
+    "schoolpilot": {
+      "api/openapi/control.json": "9c9b29e8e9bc02750459408b4b0e3c45bac58a8e3d485e1573b0ad2932ca99cb",
+      "api/openapi/meta-3.1.json": "da01ba28852cac0de53893797cb8d1942bc3b05084f526dcc216717dec314ed0",
+      "api/openapi/parameters.go": "a3840c50abda790c2aa50497ee910e88fba8077628db144d339db87a6fcab73f",
+      "api/openapi/school.json": "ad4c83d09a88a7adb33905fbfb95bc232c76c03dceb3c8f51ad6ee11e39aac5c",
+      "api/openapi/spec.go": "d39ba95880e7e73f0ce933ba9199f2abd4568ac1fe83ec36522761d91ed4414a",
+      "api/openapi/spec_test.go": "472c5f0d5389a579bfef2af28fa390440ed36bc4038e594f64aa5a5aba4b1ae6",
+      "cmd/control-api/main.go": "6f8e3c1852afee10a987090a7737625e4d25c5c353ccdfb689b863535225344e",
+      "cmd/mail-dev/main.go": "650ec34932c3a9a705614d4fb416e9e96a484ea8597f64c0e87e26a9519a6737",
+      "cmd/mail-dev/main_test.go": "32619916bc84fec3acf9e03c8b7ae1aa671ca2f96e3f4a01daf3b714cb0142b4",
+      "cmd/migrate/main.go": "cdd1afb1f2eb17d9015cf12cd7edea4d08f9871eb58bdfa0dfe21d90469845d5",
+      "cmd/provision-dbroles/main.go": "e8eb5c34ff3ed610744c0a7c968c0c73b33d672b4bb824988ad95fdc657f1f89",
+      "cmd/school-api/main.go": "d84a66c52103543cf33e5507cfc62c46bd4547f334f062fa68668b3b0670c70b",
+      "cmd/seed-dev/main.go": "87d091893879c139e26ad3babcb80a489ab8cd2cb4b15a98dc7313f92f4019b8",
+      "cmd/worker/main.go": "8f77d65c07b0497e53c4a29df8dd283f14a04a70efbae17c8b89ebd86a9e74d2",
+      "db/control/migrations/00001_registry.sql": "0053290fafd65f21b9c9dc37e405820a4ed4b0e643678822eec0b8b4d4a5fb2f",
+      "db/control/migrations/00002_api_rate_limits.sql": "75c612628b8c78542c8c68073439ec83bfca36ad5c878c6baa74af0dfc518c83",
+      "db/control/queries/discovery.sql": "a1c366cd671fd40a3abd7229789a0302c7536d127033b0bd2dc9c9113557dba2",
+      "db/migrate.go": "18cfa34ac0b8825d112a1c457c9ea8f8281d6a6e6c5c099aa6c4d42d5ac2dbab",
+      "db/school/migrations/00001_foundation.sql": "faf049a1af59cf17f70b0c3fb334171989ab131054446fb5fe3ac9209ee65294",
+      "db/school/migrations/00002_grading.sql": "6e3c5c95f9c9fc2cf8ce2f676c369c3da30add2d90aae8f0067987cc7db5d920",
+      "db/school/migrations/00003_calendar.sql": "8ebb900f12c909345ff49f02109728abddef4ced388274ea8aa33a3de5942569",
+      "db/school/migrations/00004_access_lifecycle.sql": "a63b48288f5b8da813f7ca56983071bd4a1bdec0a02d40920605729de89a2834",
+      "db/school/migrations/00005_record_lifecycles.sql": "9209a86ea91b963b46d3007155b98821d47318cb0ea95b0fd82d13fa4af3af33",
+      "db/school/migrations/00006_enrollment_lifecycles.sql": "152ba38519d8ef21202e5a75dc031400604262a77ed588ad3d7f948346e93af9",
+      "db/school/migrations/00007_api_rate_limits.sql": "0113bc08cb67be3a59fe80fe194c06bb365ef07ccaaca101b28a59ce6ec007a2",
+      "db/school/migrations/00008_timetable.sql": "9a8713ff1beeaa86cf2dbe187051cdaf08e871db3c1701c6172e6b828c9b1ae3",
+      "db/school/migrations/00009_attendance.sql": "6c25716dc17e6f32c2ac25bbad0b92ef3dc56beeb8f63eb9dcbdfe38dec23677",
+      "db/school/migrations/00010_communications.sql": "f81444abf6af6438260abda9b86cdff65311aaa98a49eaac35d8bbb883e9dbde",
+      "db/school/migrations/00011_communication_authorization.sql": "09b35f76c0770f9128dbc35efcfca02044b63d38d1c83b1c59ebde6e7628c9c6",
+      "db/school/migrations/00012_learning.sql": "4a0e4b646407b5fa1597345e3226d3cf6293eaeed5e8d05115b09228bd0de891",
+      "db/school/migrations/00013_learning_lifecycle_guards.sql": "9388e19d71d1afea123f85fe890265cbfdc6ce85f1a199181ed99485e9bf370c",
+      "db/school/migrations/00014_assessment.sql": "0504b570c108cbb8309db9b95e15fb4aa90442afd0e8ee170ed03289cd24b408",
+      "db/school/migrations/00015_academic_notifications.sql": "9c1293759898f2691933559717150fcefac7c6eda680b434a1e4307607e6c3d0",
+      "db/school/migrations/00016_assessment_guards.sql": "ad7aa16a8af475e6f0cd093fb4846a64ae20b1a9caf19e12c83f74e7d3e83845",
+      "db/school/migrations/00017_report_visibility.sql": "e2e0b8ada370d7206fec28fb2a0eb4fdb429261381d45d1da50d22e96bbbea49",
+      "db/school/migrations/00018_academic_delivery_rights.sql": "ce9a1de7f12cf6c204619371dffa08155b9993431d8f9e9e3f46a8dfafbc6969",
+      "db/school/migrations/00019_academic_student_scope.sql": "156d79a7a155c7e4b71ea92fe30990c2a3ef2c5fe81373aead4bdea71292b3ea",
+      "db/school/migrations/00020_assessment_roster_episode.sql": "6b46b79bf1fd1a4329d7c0757989389306bd5535d12cf211c7499ea2ed148465",
+      "db/school/migrations/00021_workspace_authorization.sql": "78a9d0351b77f1fb3ffaf2800394bd834f4683967801a37537148c7669f570f4",
+      "db/school/migrations/00022_publication_recipient_eligibility.sql": "16cbf4148cb2f6e61a071e9d34b33a0959b4c95014ec332866d10f1193dd1b3b",
+      "db/school/queries/daily_operations.sql": "44af589c7889240dfb6ba97af8f347bc9e9bb9cb9168ed9ec5732f908771b72a",
+      "db/school/queries/enrollment.sql": "3f9b1362d82178449a404d880d208f8a6b1e09af63167f463297539cdf038f5c",
+      "db/school/queries/events.sql": "ca2d0996f54ae7397b4372d5acf4721ed9df7407c4223f34a1420bc33f91730b",
+      "db/school/queries/identity.sql": "553096d88a1855743231d282ee514b1e3150504e4135982d42ca795069017215",
+      "db/school/queries/people.sql": "0e5d4f37b68535822cb12cb829a67bcbaca221b81cda70d18c714108f1227a1f",
+      "db/school/queries/school.sql": "d90a3f995f70fc263629fe259c691b70a2893e9e8688eaa17e08ca4f3996a4a8",
+      "internal/access/http.go": "e474f0400d295063c4623b80945b7ed6741bcc97747ca8f3595e87108439f24f",
+      "internal/access/service.go": "f15a100fa1880415524ad162dc1279ba8269a8db746dfa3f88606d7b9bcf17bd",
+      "internal/app/contracts.go": "83eb46ce8cf106b4bc5e2c5ee9c01fe5aaea6c921c24b37bfe528984772b6c6a",
+      "internal/app/server.go": "d3e2e37f575fb6e1eb071ebbd93d9ee5a905a96df42980351c8928c2aabc4d9c",
+      "internal/app/server_test.go": "d582f5ed596a0b3744eb03cd22090656270aef774ef5d2bae1251322f2f6f1dd",
+      "internal/assessment/gradebook.go": "916e4d50de589330d02cd7cf79f31d434d445adf548e216b41120875d9ea24e1",
+      "internal/assessment/http.go": "904b02c010b96565f048cd3cdc337cf7dc32802fcfc67696ff58d51afe37c662",
+      "internal/assessment/policy.go": "5d5ed9c2040235072d582560a3bebdf3eacc6d7c29a0a84cc5c0fca2941b6ea8",
+      "internal/assessment/policy_test.go": "d01c85f1816ca7be2edef6b918291a02206c6d9a7378010144ef6edfc9b4aaa9",
+      "internal/assessment/progress.go": "074623fa46c690df2c703c3412bf07fa2f7b2235b52b4de3c88f575a74d0542b",
+      "internal/assessment/reports.go": "309909cc0eb3ca4836d3a22233c770ef9d0bc2642ccc99016ed690b6bb9222a8",
+      "internal/assessment/repository.go": "7c4bb70dd3fe9c38b2709b7509ddb16232868cd828b56cf651db3e9c9e862c50",
+      "internal/assessment/roster.go": "7c60c1cc183fea9eb0e6fd646d2bf387183a54dbc0f4888ecb547e4601fe1862",
+      "internal/assessment/service.go": "f33a5e987d4b5174619326a17f508b54f6d2289a57bd1b71752bdc86df3d2194",
+      "internal/attendance/http.go": "a7ba166344e59260c500590cc131ddfa3a8920dd0914479adde5276012f70752",
+      "internal/attendance/repository.go": "6408602c46197b9c32040d72d6d5b09875dc121b5846b11d1cab3379a0dfb8ee",
+      "internal/attendance/service.go": "f6c68c34bcfc788e9f95bfbd9c0bc4b5f6fc8f1d705d822d29067733e115e38e",
+      "internal/attendance/service_test.go": "d1509e7616eaff28917f13ad341c0b6c5307e9faad719d29d69369d5d54d611a",
+      "internal/communications/contacts.go": "88c1753692846e33f0f7697afdaca7516e417e58cce53eedccec78632abf1d09",
+      "internal/communications/http.go": "5285a625a661b9249ad90f3c8374386488a93246cab4a6b1396796dffc2e17a6",
+      "internal/communications/repository.go": "21730c4650f7ba9175775a8f9aa9812853fc9626a1a25015ed81630aa2de396a",
+      "internal/communications/service.go": "993a79c18056770013c1c91c08602bf025840148e811384900c40b0601a6c06c",
+      "internal/communications/service_test.go": "e48d42fd836a0614b48a4356cfe85704838f01b1a52a97d62a3f3963389c0cea",
+      "internal/communications/worker.go": "528d9c9f73d9af70190d1cc61cfdef92932c22b8a0df15ba091378e612f8f5dc",
+      "internal/control/controldb/db.go": "7466a8a1b2bc579ab79b6a2c64d701e2aeac56da6889bbad8730a22a3a9a1d05",
+      "internal/control/controldb/discovery.sql.go": "72f433bb2946eb8a39706908aef0e6afb6f67551cb7ee288ca257d1a5629fbb4",
+      "internal/control/controldb/models.go": "57a86d96622b74166d46dbb0a914632ed50d6cd244f8fcb2626155f08eb5e16f",
+      "internal/control/service.go": "b080c37d4915d8925d848e1181311836eb262d416594dc361b67fc1def79bcc4",
+      "internal/devseed/seed.go": "0c60b6b689b723c997a899efb5afe3d501a0b71cd3cf55c902cc2c47a54431bb",
+      "internal/enrollment/http.go": "7b2ee4538c39d601cfca73caa98c17e5f5228d7c1d1d2d0ad25c7246015bc9f5",
+      "internal/enrollment/lifecycle.go": "dea156b949efe01a6d5303ec465f18c1af2d5d916f139285e2a955dd8c8b8c59",
+      "internal/enrollment/lifecycle_http.go": "0032347e6452709c5125aaf49498f82e866f6a05c65c8e5231c985a00d184704",
+      "internal/enrollment/service.go": "61924d05e3b7fb40d78e6a24470da4e50263f8115d08c127e5f66592d89c9c9b",
+      "internal/enrollment/service_test.go": "79ee247ce8486ac28b73035534c11f0a553c646672ce2be6df82684110307f5a",
+      "internal/guardian/repository.go": "ba716fc422900ffcdd07bee5b736d437328594d7570da40147bbe94f7998e01e",
+      "internal/guardian/service.go": "df78c8f8f5d7138d314b4fd6f5843708fe8fa5a86291422f8a980aac687870f3",
+      "internal/learning/files.go": "ebbcb2575f0fbc930cbea2ba26722b98190d7821997040b3173924f5cb6a9e05",
+      "internal/learning/http.go": "193884c8fec7489c9320e6f34f8433f19cb8057e596db181897e45339f342274",
+      "internal/learning/repository.go": "5059a186ed842c51b762fce4b0f51fbecae792d19b7266646e16292b4b1ae86f",
+      "internal/learning/service.go": "91ed267e0efe6134d138bbb789141d14f25f9b92b8d600e35df50d33ff241541",
+      "internal/learning/service_test.go": "ad044b79203f7d1f22d04a6ee1b4ae2f8d6a0084b1160026fd79d06b4819b134",
+      "internal/learning/submissions.go": "597ef58ea7de2c7fa57b28d6e3a539e861be0d523580eae8affa190fffbd05a2",
+      "internal/learning/teaching.go": "d7878c02577fac38a35dcb3e2efc7e4c03b402de9f71291c3d633cf927e3b0f1",
+      "internal/management/http.go": "c97939f4b6df54356fbb39f93059b30c80a4d607a31b6cfce58716cf8de6f4ec",
+      "internal/management/service.go": "444053fca3d3eb569290ddefc6be8320fe0d0f4f0a1047bf126da1d4edca51bb",
+      "internal/people/http.go": "faab9a0869b57809d583b7660f4d74f814073872735b2da1e115560485888e5f",
+      "internal/people/lifecycle.go": "672c07f3295af068d426afdcd11fdd1d7e97cd0088a1c8e26ff7a1c00aea235c",
+      "internal/people/service.go": "2bddcc116b246f91c70fbcb58aaab98ef4caeb1b4261881c762e7eaf6a9017a1",
+      "internal/platform/auth/auth.go": "28b20d6937a688c28442dae146ccfbf1f21458482edccde81dd1c0a288e1ae5e",
+      "internal/platform/authorization/authorization.go": "0be05f9a99fdaf6f50d16b5935c792a94f0fb16c3eb581873c267d2b1daef404",
+      "internal/platform/authorization/authorization_test.go": "89683f45b977d59b2913baefd5378bc3328d126edfecf8ab96003e7d16ea7f21",
+      "internal/platform/config/config.go": "d4d28bc5a5688351531b00ac7e404b35cecb0e3d1af8082dd5078dee87cb0175",
+      "internal/platform/config/config_test.go": "3a4b057d23b3d3d0917b28e02705fe11c818f2e57ebddab653cde9f52a86ee31",
+      "internal/platform/database/database.go": "fcf49e8828f260a1c80b4e27d1593a71912119a54a0bd02277559a839f423538",
+      "internal/platform/database/privileges.go": "3a0a11b91d313df1219ee7107cd58340f25b3b028e6ea0bd62a1c3f4402179ca",
+      "internal/platform/database/schooldb/daily_operations.sql.go": "dc3d11e29ec84648761bfa4b38f24f757643a617941cf1efad5d8e44128af4df",
+      "internal/platform/database/schooldb/db.go": "303666c265a6f58f4dc59b60b5eb52b45db52e5d3c10f17ee30afbcb9c3b0dc0",
+      "internal/platform/database/schooldb/enrollment.sql.go": "04128b6b5ae253b41d822afea9289a4fccc9a563920060b2a0f36cc119ece97f",
+      "internal/platform/database/schooldb/events.sql.go": "ad17cfa33189084257abcb5c4b28f870d9157d689dfd24728e73225a13799e50",
+      "internal/platform/database/schooldb/identity.sql.go": "9ccf4886bb6c9235d5d676643942134c30712f2d60473b13173c305dc7b2bca2",
+      "internal/platform/database/schooldb/models.go": "9f03c4cd96933f083894176442ee7e0f74196533efde94999ccbf13394e2df5f",
+      "internal/platform/database/schooldb/people.sql.go": "9e91bbe571119d35ad7a32ba7897c4d39796ce1e473528476e79124a12e5abe9",
+      "internal/platform/database/schooldb/school.sql.go": "6b5ca1f57f3a82fe3cbb0997419ad1a2330b023e02737969d7101318145973b9",
+      "internal/platform/events/events.go": "a674d21b7b86305fa890a6cd31b355f7648da7cea6ab8399f2d60766d409ce4a",
+      "internal/platform/events/worker.go": "cefa4bc52fb1b8a1327b2f5934245c2d213300f7e4d36b2b21ad89c98dc412b2",
+      "internal/platform/httpx/httpx.go": "f21851c500c35acf0edb0ca1b35645f5b782a9ee24045656a60c6cdc7a2f1ab3",
+      "internal/platform/objectstore/store.go": "61f06dc6853d4d1651bec4db0165574d58afca288617a29807daa8056f970252",
+      "internal/platform/objectstore/store_test.go": "451d5fe7a72381cb86633cf87ef8209f32b54196eaa552fa58594f9f3d8e4d7d",
+      "internal/platform/operations/operations.go": "e81f2e0d974626328098ebcc0dd392641668ff717d6b584a6f12a33d08569be1",
+      "internal/platform/operations/operations_test.go": "f4e2f1aa5742d079387de5e276caa1275b8896ef11593afcbf68f1ee9608bdad",
+      "internal/platform/persistence/persistence.go": "793066dc683327906c9f6736e2d2b39ba01edaef32a69b851e738c68c41a6655",
+      "internal/platform/ratelimit/ratelimit.go": "dc59efc392386bd5526d6d087183cce6401028d4aba641faf7d6bea99e4f00d6",
+      "internal/school/calendar_grading.go": "47ca755b25d7024f57b74428048f1a8e0a44d8e447173e8e4d0fc27059c5c96a",
+      "internal/school/campus.go": "88395978770e4a729fbca95a028e0d2f8a497fe2322f66e55db7e3cbd0e7ea1d",
+      "internal/school/http.go": "985e6ca20823f2cd294cdf45aea6051805ca5f0c063d0282f6c3a2d97a708e8c",
+      "internal/school/lifecycle.go": "d226ff385257b53469ab90de8df1e1f0455529b84645e6b95106f40f1951f57b",
+      "internal/school/service.go": "73a4d9d82b9239042c4393dc753a29779ae9292ab5841036e39a8b505415db00",
+      "internal/timetable/http.go": "fdc752823960180ac6c8660c0bf41b218155fce1090000175c33aa4c72c9f0bb",
+      "internal/timetable/repository.go": "88422de97062f4aa119d381848607b38c7fff5385b71a55ad91b1635356c9652",
+      "internal/timetable/service.go": "be0c82287f7c79002f47c6057ce6c4555a4835550565d36aa77c8622fb26b2ff",
+      "scripts/backup.py": "24539dd5088074baf78d353cce4026a0873ab27ef9b6741771ec11669990f215",
+      "scripts/ci-pg-client.py": "e04982f9aa7197a10db0057f7987eef785725cb41ebd46136a40de5c11adc405",
+      "scripts/dev-up.py": "9a45a34c040b4542d34b028bfdc6dee7bb025e722a49ce2d7ac7efcd6b6fd9bc",
+      "scripts/local_env.py": "6eda531c3da117b666a68f220614823472bbb5d837c9e45a0ee98f5ffa302660",
+      "scripts/object_backup.py": "e397eb2d0b9d6af66d821cf939a1d2ce1d02d7bd17fafc8542bbc7c5b4847fe3",
+      "scripts/openapi.py": "ebae08a4225dded3c673eb930d2a4f1f18a2a84ff2ee8887224d8de7f725baf3",
+      "scripts/phase2_container_load.py": "ee537e4777302fdb4c39a844012a388c78bd08aeb30bea2368401cb2114c4753",
+      "scripts/phase2_live.py": "7ea4a35837a52099d6f812d21f160b8f2da2b2a441a76b71c18529d51c792beb",
+      "scripts/phase2_operations.py": "8d3fe4adb616228aa362762bbea21d6f71f0c3fdfc5ffafbd4845d15285149ae",
+      "scripts/phase3_e2e.py": "967f2de20b6680b4a0e8fe67578cc25a488541448d20f6aecccc14b661427682",
+      "scripts/phase3_openapi.py": "8ed81ab3dfff215db6cba52c7929173e35db80f36a6ad903781eb298022503da",
+      "scripts/phase4_e2e.py": "ad2f51e82a2361b026a53b15ecadeaa608ecf9cc4cf524873962ad79ab478180",
+      "scripts/phase4_openapi.py": "cc6825f922980e48fc503c02bf332c197d4675b86c54c260b3de3ce50f99ffaa",
+      "scripts/phase4_recovery.py": "1eeb0f0678fe207e5fb43fb49a84691b919af440e38923bf463c087adf5a3123",
+      "scripts/phase5_e2e.py": "eae539786c2e3bce7b0e8337f82f281c8597be023d13c48362c5ed45b0da8e04",
+      "scripts/phase5_openapi.py": "43f02a6ea090bb403b38d558e02951c8f8df913d0078e54e7160aa4b6a7e5871",
+      "scripts/phase6_openapi.py": "90c6d4452eed3b9091a12e5c397a5c4a8d89073ee6120ab9e3f9bb1bbd9e1e47",
+      "scripts/phase6b1_identity.py": "cf441fd2f26608b8a7de3d77492088a7fb5feaf062d7ad638c931d27388cc889",
+      "scripts/phase6b_openapi.py": "2a2e1b57e0b993acb9a402744fa1d842dc702ce03adb6557e4f583e4c4b63548",
+      "scripts/phase6c_openapi.py": "b38dcde1983502737779285311e141c23f0a0aaeb3b3f05a33f7fb4e128a57fc",
+      "scripts/smoke-compose.py": "d15ecfc1a3bb66e1bf30f6f98f428d4cb85c33dc9630d13c85429bab4b89cfb9",
+      "scripts/source_archive.py": "a3c32551554dcea3708f78713e1f25fb2a1fe1010bbab8b43e1fd13b903f758c",
+      "scripts/test_backup.py": "eb65df775ccac3d1d9e11697cd1d7220ca8a92bc78898f9c9ae76a5f41b6d817",
+      "scripts/test_local_env.py": "4d42ce12baf51c311f9da7c0998d3a83c9579dfa16333fcd8d99b5eb3e974310",
+      "scripts/test_source_archive.py": "2c89f8e1102fa0657ad89197e1021a24122d27fc3df78375223f1963a7fd6673",
+      "scripts/verify_generated.py": "e6708e6b3201bb77186f930caed62851dba6b8f22f3aa965a86859db0aa978e5",
+      "scripts/verify_image.py": "028e5d2daa36f7ec34e4e4f8a4f275922db1d03f03a6d515956fc1e32f57429e",
+      "scripts/verify_metrics.py": "cd3f1be36d3fd656d2a6c9a9d4a809881dd4e746e87044a81b670522c63c658a",
+      "scripts/verify_startup_gate.py": "864419b3c082c0d4670bfff40c9bf9da9aeac6122bb73b70e03956815069f8ea",
+      "tests/integration/assessment_roster_test.go": "75d2c02142e0f425c9da179491813d46d487fa8f0e7f315053f51e09c9f56113",
+      "tests/integration/assessment_test.go": "5b7a15ec4b9a7782541bf36cad76c9744c23db810539a575a7ae5e4533ed3f9d",
+      "tests/integration/backend_test.go": "c307badc7263dc59997ad72870937bcfaecfb56f416017c6beb6441959105b08",
+      "tests/integration/communication_contacts_test.go": "f749f04f97fec6cca58d40319feffc2c01c004c6732ace134b76d47fc23fb8b0",
+      "tests/integration/constraints_worker_test.go": "3b57b27f80b7980b91be1321ca3145bb79d51d074bfa779d7adc2cec37832dc7",
+      "tests/integration/daily_operations_test.go": "9bb424755263a539cfc6c595ef113afa043b29face4baa2bb79a8e7b29612044",
+      "tests/integration/foundation_corrections_test.go": "32435ee2e82e8af2bd77c79edd61b8adb1a378aa1df3a9065fde9f0dc1bb550f",
+      "tests/integration/foundation_lifecycles_test.go": "32ebe9116714ad58e6ef8faa1123bdde60f6ca17c539cb13d6492553c27ded25",
+      "tests/integration/guardian_portal_test.go": "19fafb349a87cbf0dd4c8028ab3c0762b01d3f0bdcce9fd08a4e3e31fc5bf362",
+      "tests/integration/http_load_test.go": "a58ab1b0ce6678e8cdd7a429e0687832f185836ecb81cfb15cfd22a469a62f82",
+      "tests/integration/learning_test.go": "8b17a8c911cb98cb466d197c5670f615179829905543f7687808473097b6d5b5",
+      "tests/integration/management_test.go": "ad61b6b7edf341215bb071787ef96b8fced78dc93ce20a9242480f8a7c8e9830",
+      "tests/integration/operations_test.go": "35f595576157ceaa70fabc0788e5636f6c222971d3c6c3dcd47ca6b818f705fb",
+      "tests/integration/populated_upgrade_test.go": "0e6a7adc392e3425a8df89f90a8a9c8d04ab6c3a93606979027969208eae577e",
+      "tests/integration/rate_limits_test.go": "c7f575944927f4614414a079c37ee5eb9457139687256e8e639f688d598bc982",
+      "tests/integration/runtime_privileges_test.go": "64417b4293d40de9f5913f423922a504f848722db07c6b2ac66975b57f4c456b",
+      "tests/integration/teacher_filters_test.go": "9a97f121b68b860f5dd19fc69bea9503107e78d7e00cba92076f9f86d5ce38ab",
+      "tests/integration/teacher_period_test.go": "c5c3492a3639dfa88f95a7578e07f0108bdc3ddbee22898a71ce263ceebf40df",
+      "tests/integration/teaching_test.go": "e6540e522588857a8cd02169c0196ed202a0de0e378566d069a558a39558ff14",
+      "tests/integration/workspace_test.go": "64e3eb1269422fdb7c96a4a0b337f58a234d764f3cc3e7c25dab7686f13d5ac2",
+      "tests/load/http_test.go": "bfd82632f0cfde044288964a7faa0d8345f7cb08b723f7fe605ba2ca7438d2c7"
+    },
+    "schoolpilot-parent": {
+      "scripts/configure-local.py": "1091010e97e1609b1547d068fb2c58c0d33dec0789998fd94bf708d6366d1684",
+      "scripts/generate-api.mjs": "7660ba78e236aa922f215abd4c1c091de363857ca14ac3f5f97a1dbae213eb7c",
+      "scripts/prepare-e2e.py": "244b3e8e35cfee76da75f8c9877151d4ea282327541fa26e2266de525c0615cf",
+      "scripts/run-browser.py": "3590ec4c858edd39f30f73656603677a290ccc8036b80bdd515668c54eb2318d",
+      "scripts/source-archive.py": "3e1d2af73998e746348506943a2762a243f1db6acfca97e639e599b26ff1c63a",
+      "scripts/test-actor.py": "d37811cfc399425189d6dd2f8743918488e67972bbedee2352eeeee697e32290",
+      "scripts/test_source_archive.py": "19321856923497acdffe180275c96e2e66231768445f21012eb7e034417649cd",
+      "scripts/yarn.sh": "20095a0aa7403a54ab37e4bb2e4cda950a22f4481df3e494d6413f9c36294702",
+      "src/app/(portal)/announcements/page.tsx": "4756541531cae8951c96c2e97d902866b048c7146c93ab840ecda70eaf1b2b83",
+      "src/app/(portal)/attendance/page.tsx": "a3f9601189337c8596708d7ad0f5b7fc5421d9ca988ea562532134a3f3f02998",
+      "src/app/(portal)/children/page.tsx": "d4283f40b214c8e229754b4a2708a68ace71b8e70298a9c66b73e92aaeb342aa",
+      "src/app/(portal)/family/page.tsx": "a9ad551a9b0cef8aa08c94778a8fb1f4cef659a1179d7d228a4ec912684365cd",
+      "src/app/(portal)/homework/page.tsx": "6127b976018c1501e412ce81c9d6c4506edc66ef6c777e45c1cb3b486a37397c",
+      "src/app/(portal)/layout.tsx": "49fc360a9703c620754a0a80d40b6c73c70b82cd6df1b4e2241a7078583724b6",
+      "src/app/(portal)/messages/page.tsx": "58c52ba6e2e785c5d34a6afbf332b0358658556fcf74175a27f1cd176fec4bc7",
+      "src/app/(portal)/notifications/page.tsx": "3c1da126bb1f6abe0783df2b456a8f67d360e5fc3700eba43063ae121d22153e",
+      "src/app/(portal)/profile/page.tsx": "5cbf7fa9dcd37f76242d420541ed636c4bcd978b615cce159da649a3934836ee",
+      "src/app/(portal)/results/page.tsx": "d915bc45cee4d2deded49ab6e587c7f132e0ac8331e9fc51147d73a0c838075f",
+      "src/app/(portal)/timetable/page.tsx": "5096d0fbd2676bb001d799817a9d9d1c8756594c618d692a9d4e68a19bfe9ed7",
+      "src/app/api/family/route.ts": "b6bef99c8a9e39236f815f887b0c5bb33fe8bba92fff9ae13931d589bed53a4a",
+      "src/app/api/schools/[schoolId]/[...path]/route.ts": "3e642229b8d2611499405fa8a0ce84e49b2aacab45de784016e4496bf4feaf8a",
+      "src/app/auth/callback/route.ts": "311be244817601feac8faf912517f3f47ead8a2bbc29f9818cfe5fe9520f1056",
+      "src/app/auth/login/route.ts": "f96923b3016bb9689a2d1f6de94e2f7249509b644e2a446627c22c391c217e52",
+      "src/app/auth/logout/route.ts": "f25e963cfca8efdd8f4c11dd1617faac43860eb0a7d8b8e06bd46e3662467a01",
+      "src/app/error.tsx": "a7337285857930834cf9d7330d1b9fed14af990f973b621e3940782fcae6f822",
+      "src/app/layout.tsx": "291f86e55d0ba15234d652548359e7adf89363c4b910e2695db5fd0e5a3d23bd",
+      "src/app/login/page.tsx": "1242515eabd7c5ec7a6fc8dc291fb19d2612598cc54fba2e2cecf8d767d01d9e",
+      "src/app/not-found.tsx": "02f1c0e6a441ec67796cab5ae93586b92eb87219a27cd7f5f883adc0288ea41e",
+      "src/app/page.tsx": "8b865c9ed4f963a7149c61c056d4831a924464f7a4060c665f9250bafa1f5cf5",
+      "src/components/MainCard.tsx": "c22765c731cd0ea1fc90388b1269b4ee064668ab11e115353a08c27cfb8377e3",
+      "src/components/Providers.tsx": "e296913a75b7a94e4fde11e6532cb5d4024426f88f6d7865ff746cf02534cd90",
+      "src/components/States.tsx": "ce566089317fd09365802578071023cb8d8405e79ca72b9501980f2fe93a6658",
+      "src/config/branding.ts": "4ab95f3eecd66ee6189d86f7eb4152be894fe359ea914adee46263f6002efe42",
+      "src/config/server.ts": "9e596f1d839070ea098e2c1f4faed87ab0a577765d6d29191512818570bcb859",
+      "src/features/family/Announcements.tsx": "36a0a0e5bd5f66a9647d29c74154cedf3f841f80f395cae9d92fd1e1a56a845f",
+      "src/features/family/Attendance.tsx": "d66961e2f4e9256a3b57773b103e3b71e0cbbba0f769d587d61f75d34528f22c",
+      "src/features/family/Children.tsx": "c8bea9be098c06b3b9ed789e19a17a9b5a23d203e2340c6dde7d0806a106a01a",
+      "src/features/family/Context.tsx": "0bc459f67cba33cc9da76417a7af0261e2208c9aec420e11cd57095918d04c79",
+      "src/features/family/Family.tsx": "18cdfd4759d63d2584c8c43c658b6afad8c1bdd73661a0f910f7cb4c76cb03a0",
+      "src/features/family/Homework.tsx": "2df931d60224c3d7cb70183199eff65a36a7ea9f1d009d7cc4c8712748c887ae",
+      "src/features/family/Messages.tsx": "bd90e7f44a12b59b9659a3dc4eb3c7b2729c45be622924ac555a3d8e39bc3b2b",
+      "src/features/family/Notifications.tsx": "6291bf287b6a078a24aaa1373fe365806d5d099387dc3df24017665ac001856e",
+      "src/features/family/Profile.tsx": "d238aa4feabdec6e599c0fb56284bd7088e0ad03518dca7e049a6c4b78b57139",
+      "src/features/family/Results.tsx": "c649138bf545f1cbab26bf61f0002b58f5f214fe03d0107469327076d476ef75",
+      "src/features/family/Timetable.tsx": "a9091a0fef27d82a86ff453cad4c27100b9ed4a021490f809fdeceb8444dc8a1",
+      "src/features/family/shared.tsx": "a377678be8732ee18be8e18201610fb10153770b3c5d1f8f55da18b1c3600df6",
+      "src/layout/DashboardLayout/Header/AppBarStyled.tsx": "a6977e331fef78c23f0553baec62ab9bd7bc11b21d26f9b00799b94fc52ffd90",
+      "src/layout/FamilyLayout.tsx": "be5f394b3b34910758587fb329112f7cbeade08997b3841f741167832b986814",
+      "src/lib/api/client.tsx": "96aa754ca290e709dd09b6b6347d092f289d259b249bf3fd3f02355f4691f65c",
+      "src/lib/api/generated/CONTRACTS.json": "d819d90619bad9f3936dad5694d3f86fe6756ea4e32f40c620fdc15e7bb9140a",
+      "src/lib/api/generated/control.ts": "464adb2e0175322ccc90ecf709af60c6bdf99910f4220dd627eb965cada8a56d",
+      "src/lib/api/generated/routes.json": "501d3bc82574c1d9b3d828f3133de716ede1c37287d6dc3a408e6742b8736180",
+      "src/lib/api/generated/school.ts": "7b8d4a5a751c5095a342859b539e12da96f2ddf34066d5775d618fee99dd0eb7",
+      "src/lib/api/guardian-routes.ts": "0f9b632a0086176ac538680199c46d4fab7eed5b3c569e84969cb2f1eeece08b",
+      "src/lib/api/server.ts": "7e8c87d313ea38d7715607c4b7fa74355044b9dbaf7f2a2a336f6314f3a71128",
+      "src/lib/auth/crypto.ts": "6289d9bf3e6af7c68b37c51af989e94276bfd5b7ed44a2417fc332fd3f73d35c",
+      "src/lib/auth/oidc.ts": "372722f75f4d0fdb0d0120969625494e94258774bccd5e61a25c3ad6123e4451",
+      "src/lib/auth/origin.ts": "7bdcaddc8ec1d878c3fddd2e4115bf3b147ddd55c8b3dce43f801d289b42b374",
+      "src/lib/auth/session.ts": "e806ab7aa5b775e29d5f6bc2ad5201810bf6ed0b9bc5caedf573acf67c20ba3b",
+      "src/lib/auth/store.ts": "38c0ad0e8e19f0964d3e72667cbfd61ce595ea3e28c076c28250f8c806cdf7d0",
+      "src/lib/i18n/messages.ts": "45db801c493345b3aca4f55a6e6fe5f2c9524f8861033897050464ea3835e5fa",
+      "src/lib/i18n/numbers.tsx": "b6f7fc3cdf723488d2037b8dc90570f6522c6f51d46adbbecc08471c452af509",
+      "src/proxy.ts": "2e7094caa91feb2d94c473d6f02ab9a31831042b84821972459f8636c8915cf5",
+      "src/themes/emotionCache.tsx": "d133d272f18adb5b7587af0f6e3cf28d39506a9974d1e1840a5bc534a4f77146",
+      "src/themes/typography.ts": "88c8738a0398cf03e48a7b9fd59a6d3ddcfa7cc63b23ba408e82d47119b50901",
+      "tests/bff-workspace.test.ts": "c897cb76159986a27da22af59daedbbe07f69590c0a44b83c917d1866ee538fc",
+      "tests/discovery.test.ts": "e1ecab3ff10fd3203ffeb02207bf88c29e224d6986222753bbd5fb02379975d3",
+      "tests/e2e/parent.spec.ts": "2876925af341d3f01573b0386b40ee8dde734dc59b64b5fa676be588c972c1c8",
+      "tests/family-api.test.ts": "ff2fa0ae5258177e43ce472263682f87b0f89b5022eecfc0c418e89197e3aa9c",
+      "tests/family.test.tsx": "24fb7901c8bd511da4b60c626de7d1ee9e0f952651b50f53ccaa0062e0d32cd5",
+      "tests/guardian-routes.test.ts": "6eacbe15d721e43ee6be36ad6e0705d748f98672b64d4e86f1c71c4d16974081",
+      "tests/localization.test.ts": "23dde0b9b6d08fe21ef1393a9ea1a5a585418e63c3766d9c452508918ff63022",
+      "tests/refresh.test.tsx": "009813c77c0ee48c61e2897e944437e0e39c13d2068c2dfdf6b40f6758ad4ff4",
+      "tests/security.test.ts": "8d458bd14cd8e59532b691d87128b015394a5f1d904d5929b1d177059ec78c9f",
+      "tests/server-only.ts": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "tests/session.test.ts": "066bdb9a19dc02adeb1514f27e501992f2bd481b48160c826a2bb00bb15ea664",
+      "tests/setup.ts": "9b328c4843431fa76d8de00008fc159e95f99a840211085ff3b8f25e53d14409"
+    }
+  },
+  "not_rerun": [
+    "Teacher/Management full build and full browser suites (unchanged source)",
+    "new backup/restore demonstration",
+    "production deployment/TLS/MFA/approved external delivery",
+    "hosted CI execution",
+    "manual assistive-technology/native-device audit"
+  ],
+  "dependency_peer_diagnostic": "Non-fatal transitive Next ESLint utility and optional WASM Rolldown peer warnings; native installation/build/lint/types/tests pass.",
+  "precommit_secret_scan": {
+    "repositories": {
+      "schoolpilot": {
+        "head": "64e9dd5bb39fd6c9f8261f97437783132abd8b10",
+        "history_blobs_scanned": 484,
+        "staged_files_scanned": 34,
+        "legacy_binary_blobs_scanned_for_credentials": 0,
+        "staged_binary_files": 0,
+        "secret_findings": 0
+      },
+      "schoolpilot-parent": {
+        "head": null,
+        "history_blobs_scanned": 0,
+        "staged_files_scanned": 106,
+        "legacy_binary_blobs_scanned_for_credentials": 0,
+        "staged_binary_files": 0,
+        "secret_findings": 0
+      },
+      "schoolpilot-teacher": {
+        "head": "84d8bd38499dc300b69069eec0ff409a8eef7268",
+        "history_blobs_scanned": 144,
+        "staged_files_scanned": 0,
+        "legacy_binary_blobs_scanned_for_credentials": 0,
+        "staged_binary_files": 0,
+        "secret_findings": 0
+      },
+      "schoolpilot-mgmt": {
+        "head": "2902f0905b0b3f35bc3f1360475ea898a54487f1",
+        "history_blobs_scanned": 170,
+        "staged_files_scanned": 0,
+        "legacy_binary_blobs_scanned_for_credentials": 0,
+        "staged_binary_files": 0,
+        "secret_findings": 0
+      }
+    },
+    "parent_browser_bundle": {
+      "javascript_files": 30,
+      "secret_findings": 0
+    }
+  }
+}

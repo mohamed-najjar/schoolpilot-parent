@@ -1,0 +1,60 @@
+{
+  "template": "Able Pro Next.js TypeScript 5.1.0 seed",
+  "retained_seed_files": {
+    "src/themes/typography.ts": {
+      "seed_sha256": "440800e26588145831c7ff1017e9fa9fe8d4015b2f141377ac1d3554fc18a7ae"
+    },
+    "src/themes/emotionCache.tsx": {
+      "seed_sha256": "ade5519285c6076de438313a26d5738fe1efcacad7463d31bf7547b687102670"
+    },
+    "src/components/MainCard.tsx": {
+      "seed_sha256": "203fde88991a9d99d235c6ec4985c5ceb84f53f4ccd789137dd000f2301fba52"
+    },
+    "src/layout/DashboardLayout/Header/AppBarStyled.tsx": {
+      "seed_sha256": "fedddf1debb0f720a940562c1aec00a50d9bc44135b09e9bdb79664226931cab"
+    }
+  },
+  "shared_infrastructure_allowlist": [
+    "package.json",
+    "yarn.lock",
+    ".yarnrc.yml",
+    ".gitignore",
+    ".prettierrc",
+    ".prettierignore",
+    "tsconfig.json",
+    "next.config.ts",
+    "eslint.config.mjs",
+    "vitest.config.ts",
+    "playwright.config.ts",
+    "THIRD_PARTY_NOTICES.md",
+    "src/app/globals.css",
+    "src/app/layout.tsx",
+    "src/app/error.tsx",
+    "src/app/not-found.tsx",
+    "src/components/Providers.tsx",
+    "src/components/States.tsx",
+    "src/config/branding.ts",
+    "src/config/server.ts",
+    "src/lib/i18n/numbers.tsx",
+    "src/lib/api/server.ts",
+    "src/proxy.ts",
+    "scripts/yarn.sh",
+    "scripts/generate-api.mjs",
+    "scripts/source-archive.py",
+    "scripts/test_source_archive.py",
+    "tests/setup.ts",
+    "tests/server-only.ts",
+    "tests/session.test.ts",
+    "tests/security.test.ts",
+    "tests/discovery.test.ts",
+    "src/lib/auth/origin.ts",
+    "src/lib/auth/crypto.ts",
+    "src/lib/auth/session.ts",
+    "src/lib/auth/store.ts",
+    "src/lib/auth/oidc.ts",
+    "src/app/auth/logout/route.ts",
+    "src/app/auth/callback/route.ts",
+    "src/app/auth/login/route.ts"
+  ],
+  "notes": "Fresh seed files adapted using existing SchoolPilot theme integration. No demo routes, full-version application, mock API, sample auth or unrelated features copied."
+}
