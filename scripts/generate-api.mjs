@@ -11,25 +11,68 @@ async function output(file, content) {
       throw new Error("Generated API drift: " + file);
   } else await writeFile(file, content);
 }
+// Generate only this browser application's contract surface. Follow every local
+// component reference transitively so reusable response/error types remain intact.
+function browserContract(document, kind) {
+  const paths = Object.fromEntries(
+    Object.entries(document.paths).filter(([path]) =>
+      kind === "control"
+        ? path === "/api/v1/schools"
+        : path.startsWith("/api/v1/"),
+    ),
+  );
+  const components = {
+    securitySchemes: document.components?.securitySchemes || {},
+    schemas: {},
+  };
+  const seen = new Set();
+  function references(value) {
+    if (!value || typeof value !== "object") return;
+    if (typeof value.$ref === "string") {
+      const reference = value.$ref;
+      if (!reference.startsWith("#/components/") || seen.has(reference)) return;
+      seen.add(reference);
+      const parts = reference
+        .slice(2)
+        .split("/")
+        .map((part) => part.replaceAll("~1", "/").replaceAll("~0", "~"));
+      if (parts.length !== 3)
+        throw new Error("Unsupported component reference");
+      const [, category, name] = parts;
+      const node = document.components?.[category]?.[name];
+      if (!node) throw new Error("Unresolved component reference");
+      components[category] ||= {};
+      components[category][name] = node;
+      references(node);
+    }
+    Object.values(value).forEach(references);
+  }
+  references(paths);
+  return { ...document, paths, components };
+}
+
 for (const kind of ["school", "control"]) {
   const raw = await readFile(`${backend}/api/openapi/${kind}.json`, "utf8");
+  const document = browserContract(JSON.parse(raw), kind);
   await output(
     `src/lib/api/generated/${kind}.ts`,
-    astToString(await openapiTS(JSON.parse(raw))),
+    astToString(await openapiTS(document)),
   );
   manifest[kind] = createHash("sha256").update(raw).digest("hex");
   if (kind === "school")
     await output(
       "src/lib/api/generated/routes.json",
       JSON.stringify(
-        Object.entries(JSON.parse(raw).paths).flatMap(([path, item]) =>
-          Object.keys(item)
-            .filter((m) => ["get", "post", "put"].includes(m))
-            .map((method) => ({
-              method: method.toUpperCase(),
-              path: path.replace("/api/v1/", ""),
-            })),
-        ),
+        Object.entries(document.paths)
+          .filter(([path]) => path.startsWith("/api/v1/"))
+          .flatMap(([path, item]) =>
+            Object.keys(item)
+              .filter((m) => ["get", "post", "put"].includes(m))
+              .map((method) => ({
+                method: method.toUpperCase(),
+                path: path.replace("/api/v1/", ""),
+              })),
+          ),
         null,
         2,
       ) + "\n",

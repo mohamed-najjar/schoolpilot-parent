@@ -1,14 +1,6 @@
 [
   {
     "method": "GET",
-    "path": "/health/live"
-  },
-  {
-    "method": "GET",
-    "path": "/health/ready"
-  },
-  {
-    "method": "GET",
     "path": "me"
   },
   {
@@ -742,5 +734,21 @@
   {
     "method": "GET",
     "path": "guardian/children/{id}/contacts"
+  },
+  {
+    "method": "GET",
+    "path": "student/context"
+  },
+  {
+    "method": "GET",
+    "path": "student/day"
+  },
+  {
+    "method": "GET",
+    "path": "student/feedback"
+  },
+  {
+    "method": "GET",
+    "path": "student/assignments/{id}"
   }
 ]
