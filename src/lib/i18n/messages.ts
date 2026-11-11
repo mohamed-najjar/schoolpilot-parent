@@ -1,4 +1,18 @@
 export const en = {
+  reportAbsence: "Report an absence",
+  absenceReportingUnavailable:
+    "You do not have absence-reporting permission for this child.",
+  absenceReportHelp:
+    "Explain an absence for this child, including multiple dates. The school reviews the report separately; sending it does not change attendance. Dates must be within the child's enrollment and no more than 30 days apart.",
+  absenceExplanation: "Absence explanation",
+  submitAbsenceReport: "Submit absence report",
+  invalidAbsenceReport:
+    "Enter valid ordered dates no more than 30 days apart and an explanation of 1–2,000 characters.",
+  absenceReportSubmitted:
+    "Your report was saved for school review. Attendance has not been changed automatically.",
+  childAbsenceReports: "Absence reports for this child",
+  absenceReviewNote: "School review note",
+
   previous: "Previous page",
   family: "Family Home",
   children: "My Children",
@@ -185,6 +199,19 @@ export const en = {
 } as const;
 export type MessageID = keyof typeof en;
 export const ar: Record<MessageID, string> = {
+  reportAbsence: "الإبلاغ عن غياب",
+  absenceReportingUnavailable: "ليست لديك صلاحية الإبلاغ عن غياب هذا الابن.",
+  absenceReportHelp:
+    "قدّم توضيحاً لغياب هذا الابن ليوم أو عدة أيام. تراجع المدرسة البلاغ بشكل منفصل ولا يؤدي إرساله إلى تغيير الحضور. يجب أن تكون التواريخ ضمن فترة التسجيل وألا تزيد المسافة بينها على ٣٠ يوماً.",
+  absenceExplanation: "توضيح الغياب",
+  submitAbsenceReport: "إرسال بلاغ الغياب",
+  invalidAbsenceReport:
+    "أدخل تواريخ صحيحة ومرتبة لا تتباعد أكثر من ٣٠ يوماً وتوضيحاً من حرف إلى ٢٠٠٠ حرف.",
+  absenceReportSubmitted:
+    "حُفظ البلاغ لمراجعة المدرسة. لم يتغير الحضور تلقائياً.",
+  childAbsenceReports: "بلاغات غياب هذا الابن",
+  absenceReviewNote: "ملاحظة مراجعة المدرسة",
+
   previous: "الصفحة السابقة",
   family: "الرئيسية للعائلة",
   children: "أبنائي",

@@ -76,3 +76,65 @@ test("rejects forged-origin writes before forwarding", async () => {
   expect(response.status).toBe(403);
   expect(fetch).not.toHaveBeenCalled();
 });
+test("forwards guardian absence reporting with a fixed workspace and the original idempotency key", async () => {
+  const body = {
+    student_id: schoolId,
+    starts_on: "2026-11-12",
+    ends_on: "2026-11-14",
+    explanation: "Synthetic / تجريبي",
+  };
+  const fetch = vi
+    .fn()
+    .mockResolvedValue(
+      new Response(JSON.stringify({ id: schoolId, status: "submitted" }), {
+        status: 201,
+      }),
+    );
+  vi.stubGlobal("fetch", fetch);
+  const response = await POST(
+    new NextRequest(
+      "http://localhost:3002/api/schools/" + schoolId + "/absence-reports",
+      {
+        method: "POST",
+        headers: {
+          Origin: "http://localhost:3002",
+          "Content-Type": "application/json",
+          "Idempotency-Key": "same-report-key",
+          "X-SchoolPilot-Workspace": "management",
+        },
+        body: JSON.stringify(body),
+      },
+    ),
+    { params: Promise.resolve({ schoolId, path: ["absence-reports"] }) },
+  );
+  expect(response.status).toBe(201);
+  expect(fetch.mock.calls[0][1].headers).toMatchObject({
+    "X-SchoolPilot-Workspace": "guardian",
+    "Idempotency-Key": "same-report-key",
+  });
+  expect(
+    JSON.parse(new TextDecoder().decode(fetch.mock.calls[0][1].body)),
+  ).toEqual(body);
+});
+test("keeps absence office decisions and forged-origin reports outside guardian authority", async () => {
+  const fetch = vi.fn();
+  vi.stubGlobal("fetch", fetch);
+  for (const [path, origin] of [
+    [["absence-reports", schoolId, "review"], "http://localhost:3002"],
+    [["absence-reports"], "http://evil.test"],
+  ] as const) {
+    const r = await POST(
+      new NextRequest(
+        "http://localhost:3002/api/schools/" + schoolId + "/" + path.join("/"),
+        {
+          method: "POST",
+          headers: { Origin: origin, "Content-Type": "application/json" },
+          body: "{}",
+        },
+      ),
+      { params: Promise.resolve({ schoolId, path: [...path] }) },
+    );
+    expect(r.status).toBe(403);
+  }
+  expect(fetch).not.toHaveBeenCalled();
+});

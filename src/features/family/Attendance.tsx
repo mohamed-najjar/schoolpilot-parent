@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import AbsenceReports from "./AbsenceReports";
 import { Stack, Typography, Button, TextField, Chip } from "@mui/material";
 import {
   ChildGate,
@@ -21,9 +22,16 @@ export default function Attendance() {
       <Title id="attendance" />
       <ChildGate>
         {(context, school) => (
-          <AcademicGate context={context}>
-            <History school={school} child={context.child.id} />
-          </AcademicGate>
+          <Stack spacing={3}>
+            <AbsenceReports
+              school={school}
+              child={context.child.id}
+              allowed={context.child.can_report_absence}
+            />
+            <AcademicGate context={context}>
+              <History school={school} child={context.child.id} />
+            </AcademicGate>
+          </Stack>
         )}
       </ChildGate>
     </>

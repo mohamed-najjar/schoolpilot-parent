@@ -29,3 +29,9 @@ test("guardian route allowlist exposes reads and explicitly authorized communica
   expect(guardianRoute("POST", "conversations")).toBe(true);
   expect(guardianRoute("POST", `conversations/${id}/messages`)).toBe(true);
 });
+test("allows scoped absence reporting without attendance marking or office review authority", () => {
+  expect(guardianRoute("GET", "absence-reports")).toBe(true);
+  expect(guardianRoute("POST", "absence-reports")).toBe(true);
+  expect(guardianRoute("POST", `absence-reports/${id}/review`)).toBe(false);
+  expect(guardianRoute("PUT", `attendance-records/${id}/mark`)).toBe(false);
+});

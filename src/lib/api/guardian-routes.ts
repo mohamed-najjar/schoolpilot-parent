@@ -1,6 +1,7 @@
 const id = "[a-fA-F0-9-]{36}";
 const read = [
   "me/access-policy",
+  "absence-reports",
   "guardian/children",
   "guardian/profile",
   `guardian/children/${id}(?:/contacts)?`,
@@ -27,6 +28,7 @@ export function guardianRoute(method: string, path: string) {
   return (
     method === "POST" &&
     [
+      "absence-reports",
       "conversations",
       `conversations/${id}/(?:messages|attachments)`,
       `notifications/${id}/read`,
