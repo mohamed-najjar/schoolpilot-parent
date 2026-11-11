@@ -1042,5 +1042,49 @@
   {
     "method": "GET",
     "path": "configuration-office/grade-levels/{id}/grading-scheme-changes"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/teachers"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/assignments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/assignments/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/assignments/{id}/operations"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/assignments/{id}/lessons"
+  },
+  {
+    "method": "POST",
+    "path": "teaching-office/assignments/{id}/transitions"
+  },
+  {
+    "method": "POST",
+    "path": "teaching-office/assignments/{id}/transfers"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/operations/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/operations/{id}/rules"
+  },
+  {
+    "method": "GET",
+    "path": "teaching-office/operations/{id}/lessons"
   }
 ]
