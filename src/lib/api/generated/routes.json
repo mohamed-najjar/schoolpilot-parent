@@ -1086,5 +1086,45 @@
   {
     "method": "GET",
     "path": "teaching-office/operations/{id}/lessons"
+  },
+  {
+    "method": "GET",
+    "path": "daily-teacher-office/assignments"
+  },
+  {
+    "method": "POST",
+    "path": "daily-teacher-office/assignments"
+  },
+  {
+    "method": "GET",
+    "path": "daily-teacher-office/assignments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "daily-teacher-office/assignments/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "daily-teacher-office/assignments/{id}/operations"
+  },
+  {
+    "method": "POST",
+    "path": "daily-teacher-office/assignments/{id}/transitions"
+  },
+  {
+    "method": "POST",
+    "path": "daily-teacher-office/assignments/{id}/transfers"
+  },
+  {
+    "method": "GET",
+    "path": "daily-teacher-office/operations/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "daily-teacher-office/teachers"
+  },
+  {
+    "method": "GET",
+    "path": "me/daily-teaching"
   }
 ]
