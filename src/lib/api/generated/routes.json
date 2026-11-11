@@ -966,5 +966,25 @@
   {
     "method": "GET",
     "path": "academic-office/grades/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "course-placement-batches/preview"
+  },
+  {
+    "method": "POST",
+    "path": "course-placement-batches"
+  },
+  {
+    "method": "GET",
+    "path": "course-placement-batches"
+  },
+  {
+    "method": "GET",
+    "path": "course-placement-batches/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "course-placement-batches/{id}/placements"
   }
 ]
