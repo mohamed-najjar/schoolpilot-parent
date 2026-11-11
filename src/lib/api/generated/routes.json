@@ -1174,5 +1174,25 @@
   {
     "method": "GET",
     "path": "access-office/persons/{id}/grants"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/students/{id}/access"
+  },
+  {
+    "method": "POST",
+    "path": "access-office/students/{id}/access/disable"
+  },
+  {
+    "method": "POST",
+    "path": "access-office/students/{id}/access/enable"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/students/{id}/access/history"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/student-access-history/{id}"
   }
 ]
