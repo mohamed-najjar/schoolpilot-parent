@@ -1,37 +1,26 @@
 {
   "date": "2026-11-11",
   "repository": "schoolpilot-parent",
-  "status": "FINAL_BROWSER_VERIFICATION_IN_PROGRESS",
+  "status": "LOCAL_VERIFICATION_PASS",
   "static_checks": [
     {
-      "command": [
-        "install",
-        "--immutable"
-      ],
+      "command": ["install", "--immutable"],
       "result": "PASS"
     },
     {
-      "command": [
-        "typecheck"
-      ],
+      "command": ["typecheck"],
       "result": "PASS"
     },
     {
-      "command": [
-        "lint"
-      ],
+      "command": ["lint"],
       "result": "PASS"
     },
     {
-      "command": [
-        "test"
-      ],
+      "command": ["test"],
       "result": "PASS"
     },
     {
-      "command": [
-        "api:check"
-      ],
+      "command": ["api:check"],
       "result": "PASS"
     }
   ],
@@ -43,9 +32,20 @@
   "runtime_source_files": 71,
   "runtime_source_manifest_sha256": "360ce4aa3751dd478397b22e1e68548bb690f253dba5a219aa94586babcbc556",
   "existing_browser_suite": {
-    "status": "RUNNING_OR_PENDING"
+    "status": "PASS",
+    "tests": 26,
+    "skipped": 0,
+    "flaky": 0,
+    "duration_seconds": 353.464
   },
-  "new_phase8_visual_matrix": "RUNNING_OR_PENDING",
+  "new_phase8_visual_matrix": {
+    "status": "PASS",
+    "cases": 28,
+    "axe_violations": 0,
+    "overflow_failures": 0,
+    "rate_limit_failures": 0,
+    "evidence_directory": "ux-final-remaining-parent"
+  },
   "shared_customer_workflow": {
     "checks": 150,
     "status": "PASS"
@@ -58,5 +58,6 @@
     "status": "PASS"
   },
   "production_ready": false,
-  "hosted_ci": "NOT_OBSERVED"
+  "hosted_ci": "NOT_OBSERVED",
+  "source_secret_scan": "See final release manifest; exact index/source/history/client bundles scanned before delivery"
 }

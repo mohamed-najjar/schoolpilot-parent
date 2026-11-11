@@ -56,11 +56,10 @@ See [architecture](docs/phase6c/FRONTEND_ARCHITECTURE.md),
 [remaining gaps](docs/phase6c/REMAINING_GAPS.md).
 Stop before Phase 6D. No production-readiness claim.
 
-
 ## Phase 8 onboarding and commercial foundation
 
 This portal adds recipient-safe activation and a scoped access notice. See [the implementation and verification report](docs/phase8/IMPLEMENTATION_REPORT.md).
 Configure the fixed public portal origins using `.env.example`; keep populated
 private environments out of Git. Existing authentication, RTL/theme and resource
-authorization boundaries remain. Final browser/visual verification is running;
+authorization boundaries remain. Final local browser/visual verification passes;
 production readiness is not claimed.

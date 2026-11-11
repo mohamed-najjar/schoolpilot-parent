@@ -44,9 +44,9 @@ build/start checks pass at their recorded checkpoints. The backend full race/
 PostgreSQL run passes239 top-level/485 test-subtest events. A fresh real Keycloak/
 HTTP/BFF/worker customer workflow passes150 checks; paired database/learning/import
 recovery passes30 checks over103 tables,1 learning object and10 import sources.
-These are separate scopes, not a combined test total. Full preserved portal browser
-regressions and new seven-width, Arabic/English, light/dark axe/screenshots are
-running. No pending case or interrupted visual run is claimed passed.
+These are separate scopes, not a combined test total. The preserved full portal browser suite and new seven-width, Arabic/English,
+light/dark axe/screenshots now pass. Earlier interrupted/incorrect-harness attempts
+remain failed and are not counted as passing cases.
 
 The shared reproducible customer/visual/recovery runners and authoritative reports
 are in the backend repository's `scripts/phase8_customer_*`,
@@ -66,7 +66,7 @@ With a fresh real-service private PW_FIXTURE and running production preview:
 portal's Redis/session outage test with another browser run on that portal. The
 Phase8 visual runner paces traffic without changing server budgets or clearing
 counters. Source/working-history/client-bundle secret scans precede reviewed commits
-and final pushes. Final browser/visual evidence and Git/archive delivery are pending.
+and final pushes. Final local browser/visual evidence passes; Git/archive provenance accompanies the handoff.
 
 The full product remains0 Complete/15 Partial/9 Missing; production readiness NO.
 Production IdP/MFA/recovery, provider/cloud/HA/offsite/control-vault/PITR acceptance,
@@ -74,3 +74,5 @@ real devices/assistive technology, and deferred product domains remain outside t
 local milestone. Phase9 has not begun. Required upstream notices are preserved.
 
 Current final static run: 35 unit tests and 3 Python archive-policy tests pass; unused-local/parameter checking passes. See VERIFICATION_RESULTS.json.
+
+Final executed result: 26 existing real-service browser tests and 28 new Phase8 screen combinations pass, with no failures, skips or flakes. All selected axe/overflow/rate checks pass.
