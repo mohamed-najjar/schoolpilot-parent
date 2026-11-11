@@ -17,7 +17,11 @@ function browserContract(document, kind) {
   const paths = Object.fromEntries(
     Object.entries(document.paths).filter(([path]) =>
       kind === "control"
-        ? path === "/api/v1/schools"
+        ? [
+            "/api/v1/schools",
+            "/api/v1/onboarding/identity",
+            "/api/v1/onboarding/resolve",
+          ].includes(path)
         : path.startsWith("/api/v1/"),
     ),
   );

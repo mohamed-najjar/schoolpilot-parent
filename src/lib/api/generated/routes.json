@@ -750,5 +750,153 @@
   {
     "method": "GET",
     "path": "student/assignments/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/accept"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/invitations"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/invitations"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/invitations/{id}/revoke"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/invitations/{id}/reissue"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/accounts/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/accounts/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/sync-jobs"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/sync-jobs/{id}/retry"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/setup"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/setup"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/setup/reviews"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/catalogs/{kind}"
+  },
+  {
+    "method": "GET",
+    "path": "imports/templates"
+  },
+  {
+    "method": "GET",
+    "path": "imports/templates/{kind}"
+  },
+  {
+    "method": "POST",
+    "path": "imports/uploads"
+  },
+  {
+    "method": "GET",
+    "path": "imports/uploads"
+  },
+  {
+    "method": "GET",
+    "path": "imports/uploads/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "imports/uploads/{id}/jobs"
+  },
+  {
+    "method": "POST",
+    "path": "imports/uploads/{id}/validations"
+  },
+  {
+    "method": "POST",
+    "path": "imports/uploads/{id}/confirmations"
+  },
+  {
+    "method": "GET",
+    "path": "imports/jobs/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "imports/jobs/{id}/cancel"
+  },
+  {
+    "method": "GET",
+    "path": "imports/jobs/{id}/results"
+  },
+  {
+    "method": "GET",
+    "path": "imports/jobs/{id}/attempts"
+  },
+  {
+    "method": "GET",
+    "path": "imports/jobs/{id}/error-report"
+  },
+  {
+    "method": "GET",
+    "path": "imports/jobs/{id}/resolution"
+  },
+  {
+    "method": "POST",
+    "path": "imports/jobs/{id}/resolution"
+  },
+  {
+    "method": "GET",
+    "path": "billing/subscription"
+  },
+  {
+    "method": "GET",
+    "path": "billing/periods"
+  },
+  {
+    "method": "GET",
+    "path": "billing/events"
+  },
+  {
+    "method": "GET",
+    "path": "billing/payments"
+  },
+  {
+    "method": "GET",
+    "path": "me/access-policy"
+  },
+  {
+    "method": "POST",
+    "path": "onboarding/portal-verifications"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/profiles"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/profiles/{id}/relationships"
+  },
+  {
+    "method": "GET",
+    "path": "onboarding/readiness"
   }
 ]

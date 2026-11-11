@@ -3071,6 +3071,663 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/onboarding/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Central JWT required before school-local actor binding. Fixed deployment and claim gateway. Exact immutable subject/hash, current inviter authority, live local profile/guardian relationships/scopes and single-use token. Atomic local binding, grant, anchor, audit and synchronization outbox. A replay returns its anchor and never recreates revoked roles. Central claim and local commit are distinct durable steps; synchronization_status reports the actual queued/running/succeeded/failed delivery state, never external email delivery.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["acceptIdentityInvitation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/invitations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * School-wide administrator. Literal name/subject search, kind/state filters, newest-first created_at/id cursor. Hashes, raw tokens, credentials and leases are excluded.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolIdentityInvitations"];
+        put?: never;
+        /**
+         * School-wide administrator. Exact pre-existing local person/profile and intended central subject. Guardian invitations require explicit current unrestricted relationship IDs; teacher scopes require actual teaching assignments. No email/name matching. Secret disclosed once after commit; hash-only metadata queued for central registration. Securely hand off the fragment link after synchronization succeeds. Same-key creation replay returns metadata only.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["issueSchoolIdentityInvitation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/invitations/{id}/revoke": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * School-wide administrator, fresh authorization and current invitation version. Pending/expired/revoked invitations only; acceptance is serialized against this operation. Reissue retains the exact identity/person/scopes/relationships, revalidates rights and creates linked history with a new token. Accepted accounts use explicit school-account suspension or the existing role/guardian lifecycle APIs; never silently remove independent roles.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["revokeSchoolIdentityInvitation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/invitations/{id}/reissue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * School-wide administrator, fresh authorization and current invitation version. Pending/expired/revoked invitations only; acceptance is serialized against this operation. Reissue retains the exact identity/person/scopes/relationships, revalidates rights and creates linked history with a new token. Accepted accounts use explicit school-account suspension or the existing role/guardian lifecycle APIs; never silently remove independent roles.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["reissueSchoolIdentityInvitation"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/accounts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * School-wide administrator. Explicit account suspension state for this one school. An implicit enabled account has version 1.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolAccountAccess"];
+        put?: never;
+        /**
+         * School-wide administrator and current version. Explicitly suspends/resumes every workspace for this person in this school only. Protects the last effective school administrator. Role-only revoke retains independent roles. Resume never overrides a revoked central membership; a fresh verified invitation is required to restore discovery. Audited and transactionally queues a current reference check.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["changeSchoolAccountAccess"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/sync-jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * School-wide administrator. Actual durable attempts/failure history. Succeeded means a school/resource/event-bound control ACK, not external delivery. Newest-first created_at/id cursor.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolIdentitySyncJobs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/sync-jobs/{id}/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Fresh school-wide administrator. Failed job only; creates a single linked successor, retaining immutable old outcome and attempts. Repeated requests return the actual successor status.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["retrySchoolIdentitySync"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/setup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide administrator. Shared resumable setup context and canonical readiness. Implicit progress starts at version 1. A server digest review becomes stale when its actual underlying records change. Configuration completion excludes teaching assignments that may follow staff import; teaching configuration is reported separately. Neither flag asserts whole-product or pilot readiness.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolSetupState"];
+        put?: never;
+        /**
+         * Current school-wide administrator and reviewed progress version. Saves all three nullable selections plus current step; no domain record or completion checkbox is fabricated. Exact local references, shared progress version, hashed idempotency and atomic history/audit/outbox. Old reviews remain immutable; canonical data determines whether they still apply.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["saveSchoolSetup"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/setup/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Current school-wide administrator. Verifies actual canonical data for the selected step before appending its server digest review and advancing shared progress. Missing data conflicts; replay never reviews changed data. Communication review concerns saved administrator notification preferences, not external delivery or invented global school policies.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["reviewSchoolSetupStep"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/catalogs/{kind}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide administrator. Paginated/searchable canonical choices without the legacy 200-row truncation. Staff includes unassigned profiles and minimized bilingual names. ID filter retrieves saved selections. Year filter supports academic-years/terms/classes/courses; program filter supports programs/grade-levels/subjects/classes/courses/grading-schemes; campus filter supports campuses/classes/courses. Unsupported filter/kind combinations are rejected. No student personal records are returned.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolSetupCatalog"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. Eight actual import schemas. Teacher/guardian identity access still requires verified invitation activation.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importTemplates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/templates/{kind}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. Download a safe CSV/XLSX header template in a JSON base64 envelope. Enter identifiers and ISO dates as text in XLSX. No example person is imported automatically.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importTemplateFile"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/uploads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importUploads"];
+        put?: never;
+        /**
+         * Current school-wide principal/administrator only. Immutable private source and checksum. Max 8 MiB/5000 rows/64 columns; two concurrent parsing slots per process. No domain rows created. Same actor/key/content returns existing metadata; raw files never go into logs or audit payloads.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["uploadImportFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/uploads/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importUpload"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/uploads/{id}/jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importUploadJobs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/uploads/{id}/validations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Current school-wide principal/administrator only. Queue a durable dry run. Empty columns map same-name headers. Every other column must be mapped or explicitly ignored. Reject is default policy choice; use_existing_exact never matches by name/email and never overwrites. Row data, audit and outbox writes are rolled back in the dry run. Poll actual job/results; succeeded validation may contain invalid rows and commits zero domain rows.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["validateImportFile"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/uploads/{id}/confirmations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Current school-wide principal/administrator only. Requires current zero-error successful validation and exact confirmation IMPORT N ROWS, plus explicit warning acknowledgement. Queues bounded durable execution; it does not claim completion. Revalidates all rules, identity, authority and trusted policy. File execution is atomic; failure commits zero domain rows. Existing source cannot have simultaneous or repeat successful executions. Same-key retries return current actual state.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["confirmImportExecution"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/jobs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. Actual queued/running/succeeded/failed/dead/cancelled progress. processed_rows is work attempted; committed_rows stays zero until the whole execution commits. Does not imply invitations, user access or commercial readiness.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importJob"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/jobs/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Current school-wide principal/administrator only. Versioned audited cancellation fences pending execution. Running uncommitted domain changes roll back; history and source remain retained.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["cancelImportJob"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/jobs/{id}/results": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. Audited paginated canonical mapped source values and sanitized row codes. Cursor is last row number. Dry-run IDs are null because temporary records were rolled back. Execution results retain real same-database foreign keys.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importJobResults"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/jobs/{id}/attempts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. At most three retained attempt outcomes. Leases and database diagnostics are not exposed. Interrupted leases are recovered, exhausted work is swept before selecting new work.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importJobAttempts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/jobs/{id}/error-report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. Audited formula-safe CSV error/rollback report in a JSON base64 envelope. Completed jobs only; never silently reports partial execution as success.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["importJobErrorReport"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/imports/jobs/{id}/resolution": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only. Actual optional immutable review linking a failed execution to a committed corrected source. Null means no such review exists. Original job/status/attempts/results remain unchanged.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["getImportExecutionResolution"];
+        put?: never;
+        /**
+         * Current school-wide principal/administrator only. Current failed-job version and exact reviewed confirmation. Requires a different source checksum of the same kind, actually succeeded execution after this failure and all its rows committed. Explicit administrator review, not automatic identity matching or a claim that all original rows match. Immutable evidence, audit, outbox and hashed caller key commit together. No terminal state, source, student record or entitlement is rewritten. This authorized metadata recovery remains available in commercial read-only mode; it cannot execute new imports.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["resolveImportExecutionFailure"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/billing/subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school principal/administrator authority before and after the separate commercial gateway read. Audited school-local access, school-bound response and no control operator identities. Authorized history remains accessible under commercial read-only restrictions. Unconnected legacy deployments return commercial_not_connected; no financial records are invented.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolBillingSubscription"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/billing/periods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school principal/administrator authority before and after the separate commercial gateway read. Audited school-local access, school-bound response and no control operator identities. Authorized history remains accessible under commercial read-only restrictions. Unconnected legacy deployments return commercial_not_connected; no financial records are invented.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolBillingPeriods"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/billing/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school principal/administrator authority before and after the separate commercial gateway read. Audited school-local access, school-bound response and no control operator identities. Authorized history remains accessible under commercial read-only restrictions. Unconnected legacy deployments return commercial_not_connected; no financial records are invented.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolBillingEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/billing/payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school principal/administrator authority before and after the separate commercial gateway read. Audited school-local access, school-bound response and no control operator identities. Authorized history remains accessible under commercial read-only restrictions. Unconnected legacy deployments return commercial_not_connected; no financial records are invented.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolBillingPayments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/access-policy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide commercial write gate for the verified school-local actor. Contains no financial state, prices or personal information. A true value grants no resource authority; every owning service still performs its normal current authorization and entitlement checks. Narrow account recovery remains separately authorized during read-only access.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["getCurrentSchoolAccessPolicy"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/portal-verifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Immutable observation of the verified current actor using a registered portal OIDC authorized party. Requires the exact matching portal client/workspace and current local capability, including explicit guardian relationships. Client identity from headers/body/role claims is ignored. Does not grant authority or claim visual browser acceptance. Same actor/portal/key replays only while current authority remains valid; later scope/account changes are rechecked for readiness. */
+        post: operations["verifySchoolPortalAccess"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/profiles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide administrator only. Search/select exact existing local staff, teacher, guardian or student profiles for a separate verified invitation. Names and identifiers are display/search only; no identity matching or merge, password or role grant. No contacts, birth dates or private notes.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["listInvitableSchoolProfiles"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/profiles/{id}/relationships": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide administrator only. Exact guardian profile and explicit child relationship IDs/permissions/dates for invitation selection. Never links a child by name. Ineligible/restricted history remains visible to administrators and cannot grant invitation access.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["listInvitableGuardianRelationships"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/onboarding/readiness": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current administrator-only server-derived aggregates over canonical school data and reviews. Dry runs do not count as committed imports. Portal evidence is rechecked against current accounts, identities and capabilities; historical proof never grants access. This is customer onboarding evidence, not production readiness.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["getSchoolOnboardingReadiness"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -5505,6 +6162,547 @@ export interface components {
             name_ar: string;
             author_name_en: string;
             author_name_ar: string;
+        };
+        IdentityActivation: {
+            /** Format: uuid */
+            invitation_id: string;
+            /** Format: uuid */
+            person_id: string;
+            /** @enum {string} */
+            kind: "first_admin" | "staff" | "teacher" | "guardian" | "student";
+            /** Format: date-time */
+            accepted_at: string;
+            /** @enum {string} */
+            synchronization_status: "queued" | "running" | "succeeded" | "failed";
+            replayed: boolean;
+        };
+        AcceptIdentityInvitation: {
+            token: string;
+        };
+        IssuedSchoolInvitation: {
+            invitation: components["schemas"]["SchoolIdentityInvitation"];
+            token: string | null;
+            replayed: boolean;
+        };
+        SchoolIdentityInvitation: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            kind: "staff" | "teacher" | "guardian" | "student";
+            /** Format: uuid */
+            person_id: string;
+            /** Format: uuid */
+            profile_id: string;
+            issuer: string;
+            subject: string;
+            /** @enum {string} */
+            state: "pending" | "accepted" | "expired" | "revoked" | "failed";
+            /** Format: uuid */
+            created_by: string;
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            expires_at: string;
+            accepted_at: string | null;
+            previous_id: string | null;
+            /** Format: int32 */
+            version: number;
+            scopes: components["schemas"]["InvitationScope"][];
+            relationship_ids: string[];
+            /** @enum {string} */
+            synchronization_status: "queued" | "running" | "succeeded" | "failed";
+        };
+        InvitationScope: {
+            /** @enum {string} */
+            role_code: "principal" | "school_admin" | "teacher" | "accountant" | "admissions_officer" | "support_officer" | "it_admin";
+            /** @enum {string} */
+            scope_type: "school" | "campus" | "course";
+            /** Format: uuid */
+            scope_id: string;
+            valid_until: string | null;
+        };
+        SchoolInvitationInput: {
+            /** @enum {string} */
+            kind: "staff" | "teacher" | "guardian" | "student";
+            /** Format: uuid */
+            person_id: string;
+            subject: string;
+            expires_in_seconds?: number;
+            scopes?: components["schemas"]["InvitationScopeInput"][];
+            relationship_ids?: string[];
+        };
+        InvitationScopeInput: {
+            /** @enum {string} */
+            role_code: "principal" | "school_admin" | "teacher" | "accountant" | "admissions_officer" | "support_officer" | "it_admin";
+            /** @enum {string} */
+            scope_type: "school" | "campus" | "course";
+            /** Format: uuid */
+            scope_id: string;
+            valid_until?: string | null;
+        };
+        SchoolInvitationReplacement: {
+            expires_in_seconds?: number;
+        };
+        SchoolAccountAccess: {
+            /** Format: uuid */
+            person_id: string;
+            suspended: boolean;
+            reason_code: string;
+            /** Format: int32 */
+            version: number;
+        };
+        SchoolAccountAccessInput: {
+            suspended: boolean;
+            /** @enum {string} */
+            reason_code: "administrative" | "security" | "offboarding" | "other";
+        };
+        IdentitySyncJob: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            kind: "register" | "activate" | "revoke" | "membership";
+            invitation_id: string | null;
+            activation_id: string | null;
+            person_id: string | null;
+            /** @enum {string} */
+            status: "queued" | "running" | "succeeded" | "failed";
+            attempts: number;
+            /** Format: int32 */
+            max_attempts: number;
+            error_code: string;
+            /** Format: date-time */
+            available_at: string;
+            /** Format: date-time */
+            created_at: string;
+            completed_at: string | null;
+            previous_job_id: string | null;
+            attempt_history: components["schemas"]["IdentitySyncAttempt"][];
+        };
+        IdentitySyncAttempt: {
+            /** Format: uuid */
+            job_id: string;
+            /** Format: int32 */
+            attempt: number;
+            /** Format: date-time */
+            started_at: string;
+            finished_at: string | null;
+            /** @enum {string} */
+            outcome: "running" | "succeeded" | "failed" | "interrupted";
+            error_code: string;
+        };
+        IdentitySyncRetry: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            status: "queued" | "running" | "succeeded" | "failed";
+        };
+        OnboardingEmpty: Record<string, never>;
+        SchoolSetupState: {
+            /** Format: uuid */
+            school_id: string;
+            /** @enum {string} */
+            current_step: "profile" | "academic_year" | "terms" | "calendar" | "curriculum" | "classes" | "subjects" | "teaching" | "communications";
+            academic_year_id: string | null;
+            program_id: string | null;
+            campus_id: string | null;
+            /** Format: int32 */
+            version: number;
+            updated_by: string | null;
+            updated_at: string | null;
+            steps: components["schemas"]["SchoolSetupStep"][];
+            configuration_complete: boolean;
+            teaching_configuration_complete: boolean;
+            replayed: boolean;
+        };
+        SchoolSetupStep: {
+            /** @enum {string} */
+            code: "profile" | "academic_year" | "terms" | "calendar" | "curriculum" | "classes" | "subjects" | "teaching" | "communications";
+            ready: boolean;
+            reviewed: boolean;
+            stale_review: boolean;
+            required_for_configuration: boolean;
+            reason_code: string;
+            reviewed_by: string | null;
+            reviewed_at: string | null;
+        };
+        SchoolSetupProgress: {
+            /** @enum {string} */
+            current_step: "profile" | "academic_year" | "terms" | "calendar" | "curriculum" | "classes" | "subjects" | "teaching" | "communications";
+            academic_year_id: string | null;
+            program_id: string | null;
+            campus_id: string | null;
+        };
+        SchoolSetupReviewInput: {
+            /** @enum {string} */
+            step: "profile" | "academic_year" | "terms" | "calendar" | "curriculum" | "classes" | "subjects" | "teaching" | "communications";
+        };
+        SchoolSetupOption: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            kind: "campuses" | "academic-years" | "curricula" | "programs" | "grade-levels" | "subjects" | "classes" | "courses" | "terms" | "staff" | "grading-schemes";
+            identifier: string;
+            label_en: string;
+            label_ar: string;
+            version: number | null;
+            status: string;
+        };
+        ImportTemplate: {
+            /** @enum {string} */
+            kind: "students" | "staff" | "teachers" | "classes" | "subjects" | "class_memberships" | "guardian_relationships" | "teacher_assignments";
+            fields: components["schemas"]["ImportTemplateField"][];
+            warning_codes: string[];
+        };
+        ImportTemplateField: {
+            code: string;
+            /** @enum {string} */
+            type: "uuid" | "text" | "date" | "language" | "reference" | "integer" | "boolean";
+            required: boolean;
+        };
+        ImportDownload: {
+            filename: string;
+            /** @enum {string} */
+            content_type: "text/csv; charset=utf-8" | "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            data_base64: string;
+        };
+        ImportUpload: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            school_id: string;
+            /** @enum {string} */
+            kind: "students" | "staff" | "teachers" | "classes" | "subjects" | "class_memberships" | "guardian_relationships" | "teacher_assignments";
+            /** @enum {string} */
+            format: "csv" | "xlsx";
+            source_sha256: string;
+            byte_length: number;
+            row_count: number;
+            headers: string[];
+            /** Format: uuid */
+            created_by: string;
+            /** Format: date-time */
+            created_at: string;
+            current_validation_id: string | null;
+            /** Format: int32 */
+            version: number;
+        };
+        ImportUploadInput: {
+            /** @enum {string} */
+            kind: "students" | "staff" | "teachers" | "classes" | "subjects" | "class_memberships" | "guardian_relationships" | "teacher_assignments";
+            /** @enum {string} */
+            format: "csv" | "xlsx";
+            content_type: string;
+            /** @description Base64 of at most 8 MiB. UTF-8 CSV or bounded text-oriented single-sheet XLSX. Authentication and administrative admission precede large-body parsing. */
+            data_base64: string;
+        };
+        ImportJob: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            upload_id: string;
+            /** @enum {string} */
+            operation: "validate" | "execute";
+            validation_job_id: string | null;
+            previous_id: string | null;
+            mapping: components["schemas"]["ImportMapping"];
+            /** @constant */
+            validation_version: 1;
+            /** Format: uuid */
+            created_by: string;
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            available_at: string;
+            /** @enum {string} */
+            status: "queued" | "running" | "succeeded" | "failed" | "dead" | "cancelled";
+            attempts: number;
+            started_at: string | null;
+            finished_at: string | null;
+            total_rows: number;
+            processed_rows: number;
+            committed_rows: number;
+            error_rows: number;
+            warning_codes: string[];
+            last_error_code: string;
+            /** Format: int32 */
+            version: number;
+        };
+        ImportMapping: {
+            columns: {
+                [key: string]: string;
+            };
+            ignored_columns: string[];
+            /** @enum {string} */
+            conflict_policy: "reject" | "use_existing_exact";
+        };
+        ImportValidationInput: {
+            mapping: components["schemas"]["ImportMapping"];
+        };
+        ImportConfirmation: {
+            /** Format: uuid */
+            validation_job_id: string;
+            confirmation: string;
+            acknowledge_warnings: boolean;
+        };
+        ImportRowResult: {
+            row_number: number;
+            source_values: {
+                [key: string]: string;
+            };
+            issues: components["schemas"]["ImportIssue"][];
+            /** @enum {string} */
+            outcome: "valid" | "invalid" | "created" | "existing" | "rolled_back";
+            person_id: string | null;
+            student_id: string | null;
+            staff_id: string | null;
+            class_id: string | null;
+            subject_id: string | null;
+            enrollment_id: string | null;
+            guardian_id: string | null;
+            relationship_id: string | null;
+            teaching_assignment_id: string | null;
+        };
+        ImportIssue: {
+            code: string;
+            field: string;
+            /** @enum {string} */
+            severity: "error" | "warning";
+        };
+        ImportAttempt: {
+            attempt: number;
+            /** @enum {string} */
+            outcome: "succeeded" | "failed" | "interrupted" | "dead";
+            error_code: string;
+            /** Format: date-time */
+            finished_at: string;
+        };
+        ImportExecutionResolution: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            school_id: string;
+            /** Format: uuid */
+            failed_job_id: string;
+            /** Format: uuid */
+            replacement_job_id: string;
+            /** @enum {string} */
+            reason_code: "corrected_source";
+            /** Format: uuid */
+            reviewed_by: string;
+            /** Format: date-time */
+            created_at: string;
+        };
+        ImportResolutionInput: {
+            /** Format: uuid */
+            replacement_job_id: string;
+            /** @enum {string} */
+            reason_code: "corrected_source";
+            /** @constant */
+            confirmation: "REVIEWED REPLACEMENT IMPORT";
+        };
+        CommercialSubscription: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            school_id: string;
+            /** @enum {string} */
+            state: "trial" | "active" | "grace" | "past_due" | "suspended" | "cancelled" | "expired";
+            /** Format: int32 */
+            version: number;
+            /** Format: uuid */
+            current_period_id: string;
+            contract_reference: string;
+            /** Format: date-time */
+            created_at: string;
+            /** @enum {string} */
+            effective_state: "trial" | "active" | "grace" | "past_due" | "suspended" | "cancelled" | "expired";
+            /** @enum {string} */
+            access_mode: "full" | "read_only";
+            period: components["schemas"]["CommercialPeriod"];
+            /** Format: date-time */
+            observed_at: string;
+        };
+        CommercialPeriod: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            subscription_id: string;
+            /** Format: uuid */
+            school_id: string;
+            /** Format: uuid */
+            plan_revision_id: string;
+            /** Format: int32 */
+            period_number: number;
+            /** @enum {string} */
+            kind: "trial" | "paid";
+            /** Format: date-time */
+            starts_at: string;
+            /** Format: date-time */
+            ends_at: string;
+            /** Format: date-time */
+            grace_ends_at: string;
+            /** Format: date-time */
+            anchor_at: string;
+            anchor_index: number;
+            student_quantity: number;
+            /** @enum {string} */
+            quantity_source: "operator_reported_unverified";
+            currency: string;
+            currency_exponent: number;
+            base_minor: string;
+            per_student_minor: string;
+            /** @description Exact integer minor units, never floating point. */
+            total_minor: string;
+            features: {
+                timetable_writes: boolean;
+                attendance_writes: boolean;
+                communications_writes: boolean;
+                learning_writes: boolean;
+                assessment_writes: boolean;
+            };
+            limits: {
+                registered_students: number | null;
+                registered_staff: number | null;
+                classes: number | null;
+            };
+            contract_reference: string;
+            /** Format: date-time */
+            created_at: string;
+        };
+        SchoolCommercialEvent: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            subscription_id: string;
+            /** Format: int32 */
+            version: number;
+            /** Format: uuid */
+            period_id: string;
+            /** @enum {string} */
+            state: "trial" | "active" | "grace" | "past_due" | "suspended" | "cancelled" | "expired";
+            /** @enum {string} */
+            action: "trial_started" | "activated" | "grace" | "past_due" | "suspend" | "resume" | "cancel" | "expire" | "renew";
+            /** @enum {string} */
+            reason_code: "trial" | "offline_payment" | "contract" | "nonpayment" | "customer_request" | "policy" | "other";
+            contract_reference: string;
+            /** Format: date-time */
+            created_at: string;
+        };
+        SchoolCommercialManualPayment: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            subscription_id: string;
+            /** Format: uuid */
+            period_id: string;
+            /** @description Exact integer minor units, never floating point. */
+            amount_minor: string;
+            currency: string;
+            reference: string;
+            /** Format: date-time */
+            reported_received_at: string;
+            /** @enum {string} */
+            verification: "recorded_unverified";
+            /** Format: date-time */
+            created_at: string;
+        };
+        SchoolAccessPolicy: {
+            school_writes_allowed: boolean;
+        };
+        PortalVerification: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            person_id: string;
+            issuer: string;
+            subject: string;
+            /** @enum {string} */
+            portal: "management" | "teacher" | "parent" | "student";
+            client_id: string;
+            /** Format: date-time */
+            verified_at: string;
+            /** Format: date-time */
+            token_expires_at: string;
+        };
+        PortalVerificationInput: {
+            /** @enum {string} */
+            portal: "management" | "teacher" | "parent" | "student";
+        };
+        InvitableSchoolProfile: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            person_id: string;
+            /** @enum {string} */
+            kind: "staff" | "teacher" | "guardian" | "student";
+            identifier: string;
+            label_en: string;
+            label_ar: string;
+            /** @enum {string} */
+            status: "active" | "inactive";
+            account_enabled: boolean;
+            identity_linked: boolean;
+        };
+        InvitableGuardianRelationship: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            student_id: string;
+            student_number: string;
+            label_en: string;
+            label_ar: string;
+            can_view_academics: boolean;
+            can_report_absence: boolean;
+            can_receive_messages: boolean;
+            restricted: boolean;
+            /** Format: date */
+            valid_from: string;
+            valid_until: string | null;
+            eligible: boolean;
+        };
+        SchoolReadiness: {
+            /** Format: uuid */
+            school_id: string;
+            /** @constant */
+            source: "school_runtime";
+            /** Format: int32 */
+            migration_version: number;
+            /** Format: date-time */
+            observed_at: string;
+            setup: components["schemas"]["ReadinessSetup"];
+            invitations: components["schemas"]["ReadinessInvitations"];
+            imports: components["schemas"]["ReadinessImports"];
+            administrators: number;
+            authorized_teachers: number;
+            students: number;
+            guardian_relationships: number;
+            portals: components["schemas"]["ReadinessPortals"];
+        };
+        ReadinessSetup: {
+            configuration_complete: boolean;
+            teaching_configuration_complete: boolean;
+            ready_steps: number;
+            reviewed_steps: number;
+            stale_steps: number;
+        };
+        ReadinessInvitations: {
+            staff_invited: boolean;
+            guardians_invited: boolean;
+            students_invited: boolean;
+            first_administrator_activated: boolean;
+            unresolved_sync_failures: number;
+        };
+        ReadinessImports: {
+            students_imported: boolean;
+            staff_imported: boolean;
+            unresolved_execution_failures: number;
+            pending_executions: number;
+        };
+        ReadinessPortals: {
+            management: boolean;
+            teacher: boolean;
+            parent: boolean;
+            student: boolean;
         };
     };
     responses: never;
@@ -27934,6 +29132,4426 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StudentAssignmentDetail"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    acceptIdentityInvitation: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AcceptIdentityInvitation"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IdentityActivation"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolIdentityInvitations: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+                q?: string;
+                kind?: "staff" | "teacher" | "guardian" | "student";
+                state?: "pending" | "accepted" | "expired" | "revoked" | "failed";
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["SchoolIdentityInvitation"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    issueSchoolIdentityInvitation: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SchoolInvitationInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IssuedSchoolInvitation"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    revokeSchoolIdentityInvitation: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SchoolInvitationReplacement"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IssuedSchoolInvitation"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    reissueSchoolIdentityInvitation: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SchoolInvitationReplacement"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IssuedSchoolInvitation"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolAccountAccess: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolAccountAccess"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    changeSchoolAccountAccess: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SchoolAccountAccessInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolAccountAccess"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolIdentitySyncJobs: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+                status?: "queued" | "running" | "succeeded" | "failed";
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["IdentitySyncJob"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    retrySchoolIdentitySync: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OnboardingEmpty"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IdentitySyncRetry"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolSetupState: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolSetupState"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    saveSchoolSetup: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SchoolSetupProgress"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolSetupState"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    reviewSchoolSetupStep: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SchoolSetupReviewInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolSetupState"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolSetupCatalog: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+                q?: string;
+                id?: string;
+                academic_year_id?: string;
+                program_id?: string;
+                campus_id?: string;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                kind: "campuses" | "academic-years" | "curricula" | "programs" | "grade-levels" | "subjects" | "classes" | "courses" | "terms" | "staff" | "grading-schemes";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["SchoolSetupOption"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importTemplates: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["ImportTemplate"][];
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importTemplateFile: {
+        parameters: {
+            query: {
+                format: "csv" | "xlsx";
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                kind: "students" | "staff" | "teachers" | "classes" | "subjects" | "class_memberships" | "guardian_relationships" | "teacher_assignments";
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportDownload"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importUploads: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+                kind?: "students" | "staff" | "teachers" | "classes" | "subjects" | "class_memberships" | "guardian_relationships" | "teacher_assignments";
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["ImportUpload"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    uploadImportFile: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImportUploadInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportUpload"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importUpload: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportUpload"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importUploadJobs: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["ImportJob"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    validateImportFile: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImportValidationInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportJob"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    confirmImportExecution: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImportConfirmation"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportJob"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importJob: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportJob"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    cancelImportJob: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportJob"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importJobResults: {
+        parameters: {
+            query?: {
+                after?: number;
+                limit?: number;
+                errors_only?: boolean;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["ImportRowResult"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importJobAttempts: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["ImportAttempt"][];
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    importJobErrorReport: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportDownload"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getImportExecutionResolution: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        resolution: components["schemas"]["ImportExecutionResolution"] | null;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    resolveImportExecutionFailure: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImportResolutionInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ImportExecutionResolution"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolBillingSubscription: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommercialSubscription"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolBillingPeriods: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["CommercialPeriod"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolBillingEvents: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["SchoolCommercialEvent"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolBillingPayments: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["SchoolCommercialManualPayment"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getCurrentSchoolAccessPolicy: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolAccessPolicy"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    verifySchoolPortalAccess: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace": "management" | "teacher" | "guardian" | "student";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PortalVerificationInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PortalVerification"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listInvitableSchoolProfiles: {
+        parameters: {
+            query: {
+                after?: string;
+                limit?: number;
+                kind: "staff" | "teacher" | "guardian" | "student";
+                id?: string;
+                q?: string;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["InvitableSchoolProfile"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    listInvitableGuardianRelationships: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["InvitableGuardianRelationship"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    getSchoolOnboardingReadiness: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolReadiness"];
                 };
             };
             /** @description Request rejected */

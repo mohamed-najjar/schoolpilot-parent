@@ -1,5 +1,14 @@
 # Parent Portal progress
 
+## Phase 8 — 2026-11-11
+
+Onboarding/access/commercial features and real customer acceptance are implemented.
+See [the current report](phase8/IMPLEMENTATION_REPORT.md) for this portal scope.
+The shared fresh customer journey passes150 checks and paired recovery30; current
+static/unit/contract/build checks pass. Full browser/visual and final Git delivery
+are running. Full product0 Complete/15 Partial/9 Missing; production readiness NO.
+
+
 Phase 6C review milestone: independent bilingual family portal, current guardian
 relationships across two schools, domain reads/communications, independent central
 SSO and current revocation verified. All nine requested reports and provenance are

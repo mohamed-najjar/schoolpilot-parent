@@ -1,5 +1,6 @@
 const id = "[a-fA-F0-9-]{36}";
 const read = [
+  "me/access-policy",
   "guardian/children",
   "guardian/profile",
   `guardian/children/${id}(?:/contacts)?`,

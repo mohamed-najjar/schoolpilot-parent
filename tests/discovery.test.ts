@@ -2,6 +2,7 @@
 import { expect, test, vi, afterEach } from "vitest";
 vi.mock("server-only", () => ({}));
 vi.mock("@/config/server", () => ({
+  allowedSchoolEndpoint: (raw: string) => raw === "http://school.test",
   serverConfig: () => ({
     control: "http://control.test",
     schools: ["http://school.test"],

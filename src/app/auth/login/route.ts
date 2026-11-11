@@ -1,18 +1,22 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { serverConfig } from "@/config/server";
 import { oidc, oidcConfig } from "@/lib/auth/oidc";
 import { opaqueID } from "@/lib/auth/crypto";
 import { put } from "@/lib/auth/store";
 import { loginCookie, cookieOptions } from "@/lib/auth/session";
 export const runtime = "nodejs";
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const c = serverConfig();
     const verifier = oidc.randomPKCECodeVerifier(),
       state = oidc.randomState(),
       nonce = oidc.randomNonce(),
       id = opaqueID();
-    await put("login", id, { verifier, state, nonce }, 600);
+    const returnMode =
+      request.nextUrl.searchParams.get("return_mode") === "onboarding"
+        ? "onboarding"
+        : "default";
+    await put("login", id, { verifier, state, nonce, returnMode }, 600);
     const target = oidc.buildAuthorizationUrl(await oidcConfig(), {
       redirect_uri: c.origin + "/auth/callback",
       scope: "openid profile",
@@ -20,6 +24,9 @@ export async function GET() {
       code_challenge_method: "S256",
       state,
       nonce,
+      ...(request.nextUrl.searchParams.get("reauth") === "true"
+        ? { prompt: "login" }
+        : {}),
     });
     const response = NextResponse.redirect(target);
     response.cookies.set(loginCookie(), id, cookieOptions(600));

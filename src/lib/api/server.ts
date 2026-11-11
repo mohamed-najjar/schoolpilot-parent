@@ -1,7 +1,7 @@
 import "server-only";
 import type { components as Control } from "./generated/control";
 import type { Session } from "@/lib/auth/session";
-import { serverConfig } from "@/config/server";
+import { serverConfig, allowedSchoolEndpoint } from "@/config/server";
 export type DiscoveredSchool = Control["schemas"]["DiscoveredSchool"];
 export class APIError extends Error {
   constructor(public status: number) {
@@ -44,19 +44,9 @@ async function discover(session: Session) {
     c.control + "/api/v1/schools",
     session,
   );
-  return (data.items || []).filter((s) => {
-    try {
-      const u = new URL(s.endpoint_url);
-      return (
-        u.pathname === "/" &&
-        !u.search &&
-        !u.hash &&
-        c.schools.includes(u.origin)
-      );
-    } catch {
-      return false;
-    }
-  });
+  return (data.items || []).filter((s) =>
+    allowedSchoolEndpoint(s.endpoint_url),
+  );
 }
 export async function authorizedSchool(session: Session, id: string) {
   const school = (await schools(session)).find((s) => s.id === id);

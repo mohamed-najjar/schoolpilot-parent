@@ -1,3 +1,4 @@
+import { observePortalAccess } from "@/lib/onboarding/server";
 import { NextRequest, NextResponse } from "next/server";
 import { currentSession, SessionExpired } from "@/lib/auth/session";
 import { schools, backend, APIError } from "@/lib/api/server";
@@ -5,7 +6,7 @@ import type { components } from "@/lib/api/generated/school";
 export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
   try {
-    const { session } = await currentSession();
+    const { id, session } = await currentSession();
     const available = await schools(session);
     const schoolID = request.nextUrl.searchParams.get("school_id"),
       after = request.nextUrl.searchParams.get("after") || "";
@@ -48,6 +49,7 @@ export async function GET(request: NextRequest) {
                 session,
                 { headers: { "X-SchoolPilot-Workspace": "guardian" } },
               );
+              await observePortalAccess(id, session, school.id);
               return { school: publicSchool, ...page };
             } catch (e) {
               return {

@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-11",
+  "repository": "schoolpilot-parent",
+  "status": "FINAL_BROWSER_VERIFICATION_IN_PROGRESS",
+  "static_checks": [
+    {
+      "command": [
+        "install",
+        "--immutable"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "typecheck"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "lint"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "test"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "api:check"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "unit_tests": 35,
+  "python_source_archive_policy_tests": 3,
+  "unused_locals_and_parameters": "PASS",
+  "production_build_and_preview": "PASS",
+  "build_inputs_changed_after_current_preview": false,
+  "runtime_source_files": 71,
+  "runtime_source_manifest_sha256": "360ce4aa3751dd478397b22e1e68548bb690f253dba5a219aa94586babcbc556",
+  "existing_browser_suite": {
+    "status": "RUNNING_OR_PENDING"
+  },
+  "new_phase8_visual_matrix": "RUNNING_OR_PENDING",
+  "shared_customer_workflow": {
+    "checks": 150,
+    "status": "PASS"
+  },
+  "shared_paired_recovery": {
+    "checks": 30,
+    "tables": 103,
+    "learning_objects": 1,
+    "import_sources": 10,
+    "status": "PASS"
+  },
+  "production_ready": false,
+  "hosted_ci": "NOT_OBSERVED"
+}

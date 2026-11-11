@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import SchoolAccessNotice from "@/components/SchoolAccessNotice";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
@@ -271,6 +272,18 @@ function Shell({ children }: { children: React.ReactNode }) {
                 </FormControl>
               ) : null}
             </Box>
+            <SchoolAccessNotice
+              school={
+                !family.invalid &&
+                family.all.some(
+                  (x) =>
+                    x.school.id === family.selected?.schoolId &&
+                    x.child.id === family.selected?.childId,
+                )
+                  ? family.selected?.schoolId
+                  : undefined
+              }
+            />
             {children}
             <Typography
               component="footer"

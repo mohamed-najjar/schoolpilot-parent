@@ -17,11 +17,12 @@ export async function GET(request: NextRequest) {
   const loginID = jar.get(loginCookie())?.value;
   try {
     if (!loginID) throw new Error("Invalid login");
-    const saved = await get<{ verifier: string; state: string; nonce: string }>(
-      "login",
-      loginID,
-      true,
-    );
+    const saved = await get<{
+      verifier: string;
+      state: string;
+      nonce: string;
+      returnMode?: string;
+    }>("login", loginID, true);
     if (!saved) throw new Error("Invalid login");
     const url = new URL("/auth/callback", c.origin);
     url.search = request.nextUrl.search;
@@ -46,7 +47,14 @@ export async function GET(request: NextRequest) {
       subject,
     };
     await put("session", id, session, 8 * 3600);
-    const response = NextResponse.redirect(new URL("/family", c.origin));
+    const response = NextResponse.redirect(
+      new URL(
+        saved.returnMode === "onboarding"
+          ? "/onboarding/authenticated"
+          : "/family",
+        c.origin,
+      ),
+    );
     response.cookies.set(sessionCookie(), id, cookieOptions(8 * 3600));
     response.cookies.set(loginCookie(), "", cookieOptions(0));
     return response;
