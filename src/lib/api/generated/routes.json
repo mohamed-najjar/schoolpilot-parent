@@ -1006,5 +1006,33 @@
   {
     "method": "POST",
     "path": "enrollment-office/enrollments/{id}/class-transfers"
+  },
+  {
+    "method": "GET",
+    "path": "configuration-office/{kind}"
+  },
+  {
+    "method": "GET",
+    "path": "configuration-office/{kind}/{id}"
+  },
+  {
+    "method": "PUT",
+    "path": "configuration-office/{kind}/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "configuration-office/{kind}/{id}/retirement"
+  },
+  {
+    "method": "GET",
+    "path": "configuration-office/{kind}/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "configuration-office/{kind}/{id}/dependencies"
+  },
+  {
+    "method": "POST",
+    "path": "configuration-office/{kind}/{id}/lifecycle"
   }
 ]
