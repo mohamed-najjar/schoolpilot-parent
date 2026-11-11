@@ -1126,5 +1126,33 @@
   {
     "method": "GET",
     "path": "me/daily-teaching"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/sessions/{id}/responsibility"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/sessions/{id}/responsibility/teachers"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/sessions/{id}/responsibility/history"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-office/sessions/{id}/responsibility/assign"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-office/sessions/{id}/responsibility/revoke"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/responsibilities/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "me/attendance-responsibilities"
   }
 ]
