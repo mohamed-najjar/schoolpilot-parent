@@ -1154,5 +1154,25 @@
   {
     "method": "GET",
     "path": "me/attendance-responsibilities"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/staff/{id}/offboarding"
+  },
+  {
+    "method": "POST",
+    "path": "access-office/staff/{id}/offboarding"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/staff/{id}/offboardings"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/offboardings/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "access-office/persons/{id}/grants"
   }
 ]

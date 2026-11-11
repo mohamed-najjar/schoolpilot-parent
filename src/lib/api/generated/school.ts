@@ -4960,6 +4960,90 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/access-office/staff/{id}/offboarding": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide management and enabled account. Coherent named staff/version/impact counts and canonical digest over actual roles, course/daily assignments, explicit roster grants, pending staff/teacher invitations, future lessons/rules, open rosters and mark versions. Family relationships and central identities are preserved.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["reviewStaffOffboarding"];
+        put?: never;
+        /**
+         * Current school-wide management after the exclusive administration fence; exact staff version, current digest, reason and request key. Atomically retire actual course/daily assignments, revoke explicit roster responsibilities, close pending staff/teacher invitations, deactivate the staff profile and revoke professional grants with immutable normalized child receipts/audit/outbox. Preserve person/identity/guardian rights, frozen lessons and marks. No replacement required. Stale staff412; changed impact/last administrator409. Original receipt on authorized retry. Exact access-reducing recovery route remains available while ordinary writes are paused; no new entitlement is granted.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["offboardStaff"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/access-office/staff/{id}/offboardings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide management. UUID-paged immutable original offboarding results for this named staff member. Missing staff404; no cross-school selector.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["staffOffboardingHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/access-office/offboardings/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide management and enabled account. Retrieve the exact immutable original offboarding result; current authorization is required after self-removal too.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["staffOffboardingReceipt"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/access-office/persons/{id}/grants": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide management. Named actual professional role scopes for the selected person, filtered before paging. No guardian relationship, identity subject or whole-account change is implied. Use the existing exact POST role-grants/{id}/revoke to remove one selected grant; it preserves other roles, family relationships and other schools. Current database-clock last-administrator protection remains enforced.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["accessOfficeGrants"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -9002,6 +9086,75 @@ export interface components {
             subject_name_ar: string;
             /** Format: date-time */
             expires_at: string;
+        };
+        StaffOffboardingReview: {
+            /** Format: uuid */
+            id: string;
+            staff: components["schemas"]["Staff"];
+            name_en: string;
+            name_ar: string;
+            impact: {
+                grants: number;
+                teaching: number;
+                daily: number;
+                responsibilities: number;
+                invitations: number;
+                lessons: number;
+                rules: number;
+                open_rosters: number;
+            };
+            another_administrator: boolean;
+            review_digest: string;
+        };
+        StaffOffboarding: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            staff_id: string;
+            /** Format: uuid */
+            person_id: string;
+            version: number;
+            reason: string;
+            review_digest: string;
+            before_staff: components["schemas"]["Staff"];
+            after_staff: components["schemas"]["Staff"];
+            impact_snapshot: {
+                [key: string]: unknown;
+            };
+            /** Format: uuid */
+            actor_id: string;
+            /** Format: date-time */
+            created_at: string;
+            grant_count: number;
+            teaching_count: number;
+            daily_count: number;
+            responsibility_count: number;
+            invitation_count: number;
+        };
+        StaffOffboardingInput: {
+            reason: string;
+            review_digest: string;
+        };
+        OfficeRoleGrant: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            person_id: string;
+            role_code: string;
+            school_id: string | null;
+            campus_id: string | null;
+            section_id: string | null;
+            course_id: string | null;
+            /** Format: date-time */
+            valid_from: string;
+            valid_until: string | null;
+            revoked_at: string | null;
+            /** @enum {string} */
+            state: "current" | "scheduled" | "expired" | "revoked";
+            /** @enum {string} */
+            scope_type: "school" | "campus" | "course" | "section";
+            scope_name_en: string;
+            scope_name_ar: string;
         };
     };
     responses: never;
@@ -43603,6 +43756,606 @@ export interface operations {
                 content: {
                     "application/json": {
                         items: components["schemas"]["MyAttendanceResponsibility"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    reviewStaffOffboarding: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StaffOffboardingReview"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    offboardStaff: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StaffOffboardingInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StaffOffboarding"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    staffOffboardingHistory: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["StaffOffboarding"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    staffOffboardingReceipt: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StaffOffboarding"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    accessOfficeGrants: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+                q?: string;
+                state?: "current" | "scheduled" | "expired" | "revoked";
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["OfficeRoleGrant"][];
                         next_cursor: string;
                     };
                 };
