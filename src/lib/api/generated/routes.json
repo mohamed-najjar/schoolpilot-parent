@@ -986,5 +986,25 @@
   {
     "method": "GET",
     "path": "course-placement-batches/{id}/placements"
+  },
+  {
+    "method": "GET",
+    "path": "enrollment-office/enrollments/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "enrollment-office/enrollments/{id}/placements"
+  },
+  {
+    "method": "GET",
+    "path": "enrollment-office/enrollments/{id}/changes"
+  },
+  {
+    "method": "POST",
+    "path": "enrollment-office/enrollments/{id}/corrections"
+  },
+  {
+    "method": "POST",
+    "path": "enrollment-office/enrollments/{id}/class-transfers"
   }
 ]

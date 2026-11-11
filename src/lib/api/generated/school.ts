@@ -4152,6 +4152,106 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/enrollment-office/enrollments/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current enrollment-campus management authority; exact current episode/version and canonical enrollment/placement review digest. Placement changes also invalidate review when the legacy episode version is unchanged. No teacher/student/guardian office access.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["officeEnrollment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/enrollment-office/enrollments/{id}/placements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current enrollment-campus management authority. Real paginated placement state or immutable reasoned before/after correction/transfer snapshots. Student personal/contact data is not embedded in snapshots.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["officeEnrollmentPlacements"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/enrollment-office/enrollments/{id}/changes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current enrollment-campus management authority. Real paginated placement state or immutable reasoned before/after correction/transfer snapshots. Student personal/contact data is not embedded in snapshots.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["officeEnrollmentChanges"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/enrollment-office/enrollments/{id}/corrections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Current campus management, required reason; versioned/idempotent atomic receipt, audit and outbox. Correct the end of a pending/active episode, retaining original student/year/program/grade/campus/start. Shortening atomically closes or cancels affected placements; extending does not silently extend them. All year/campus/exclusion constraints still apply. Closed episodes require historical reporting processes, not reopening.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["correctEnrollmentEnd"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/enrollment-office/enrollments/{id}/class-transfers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Current campus management, required reason; versioned/idempotent atomic receipt, audit and outbox. Atomically close the source class the day before the new class begins and create its replacement for the remaining original dates. Requires the source placement version as well as episode If-Match. Destination year/program/grade/campus, capacity and exclusions are validated; course enrollment/history is retained.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        post: operations["transferEnrollmentClass"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -7496,6 +7596,94 @@ export interface components {
             first_name_ar: string;
             last_name_ar: string;
             course_code: string;
+        };
+        OfficeEnrollment: {
+            /** Format: uuid */
+            student_id: string;
+            /** Format: uuid */
+            academic_year_id: string;
+            /** Format: uuid */
+            program_id: string;
+            /** Format: uuid */
+            grade_level_id: string;
+            /** Format: uuid */
+            campus_id: string;
+            /** Format: date */
+            starts_on: string;
+            /** Format: date */
+            ends_on: string;
+            /** Format: uuid */
+            id: string;
+            /** Format: int32 */
+            version: number;
+            /** @enum {string} */
+            status: "pending" | "active" | "withdrawn" | "completed" | "cancelled";
+            review_digest: string;
+        };
+        OfficeEnrollmentPlacement: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            kind: "sections" | "courses";
+            /** Format: uuid */
+            enrollment_id: string;
+            /** Format: uuid */
+            resource_id: string;
+            label: string;
+            /** Format: date */
+            starts_on: string;
+            /** Format: date */
+            ends_on: string;
+            /** @enum {string} */
+            status: "active" | "cancelled";
+            /** Format: int32 */
+            version: number;
+        };
+        OfficeEnrollmentChange: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            enrollment_id: string;
+            /** Format: int32 */
+            version: number;
+            /** @enum {string} */
+            kind: "end_correction" | "class_transfer";
+            source_placement_id: string | null;
+            destination_placement_id: string | null;
+            reason: string;
+            before_snapshot: components["schemas"]["OfficeEnrollmentSnapshot"];
+            after_snapshot: components["schemas"]["OfficeEnrollmentSnapshot"];
+            /** Format: uuid */
+            actor_id: string;
+            /** Format: date-time */
+            created_at: string;
+        };
+        OfficeEnrollmentSnapshot: {
+            enrollment: components["schemas"]["Enrollment"];
+            placements: {
+                /** Format: uuid */
+                id: string;
+                /** @enum {string} */
+                kind: "sections" | "courses";
+                record: components["schemas"]["SectionPlacement"] | components["schemas"]["CoursePlacement"];
+            }[];
+        };
+        OfficeEnrollmentCorrectionInput: {
+            /** Format: date */
+            ends_on: string;
+            reason: string;
+            review_digest: string;
+        };
+        OfficeClassTransferInput: {
+            /** Format: uuid */
+            source_placement_id: string;
+            source_version: number;
+            /** Format: uuid */
+            section_id: string;
+            /** Format: date */
+            starts_on: string;
+            reason: string;
+            review_digest: string;
         };
     };
     responses: never;
@@ -37008,6 +37196,610 @@ export interface operations {
                         items: components["schemas"]["CoursePlacementBatchItem"][];
                         next_cursor: string;
                     };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    officeEnrollment: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfficeEnrollment"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    officeEnrollmentPlacements: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["OfficeEnrollmentPlacement"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    officeEnrollmentChanges: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["OfficeEnrollmentChange"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    correctEnrollmentEnd: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OfficeEnrollmentCorrectionInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfficeEnrollmentChange"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    transferEnrollmentClass: {
+        parameters: {
+            query?: never;
+            header: {
+                "If-Match": string;
+                "Idempotency-Key": string;
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OfficeClassTransferInput"];
+            };
+        };
+        responses: {
+            /** @description Success */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfficeEnrollmentChange"];
                 };
             };
             /** @description Request rejected */
