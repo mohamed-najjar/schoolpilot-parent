@@ -111,13 +111,23 @@ async function handle(
     return NextResponse.json(
       {
         code:
-          status === 401
-            ? "session_expired"
-            : status === 403
-              ? "forbidden"
-              : "unavailable",
+          status === 429
+            ? "rate_limited"
+            : status === 401
+              ? "session_expired"
+              : status === 403
+                ? "forbidden"
+                : "unavailable",
       },
-      { status, headers: { "Cache-Control": "no-store" } },
+      {
+        status,
+        headers: {
+          "Cache-Control": "no-store",
+          ...(e instanceof APIError && e.status === 429 && e.retryAfter
+            ? { "Retry-After": e.retryAfter }
+            : {}),
+        },
+      },
     );
   }
 }
