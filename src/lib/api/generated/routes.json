@@ -1034,5 +1034,13 @@
   {
     "method": "POST",
     "path": "configuration-office/{kind}/{id}/lifecycle"
+  },
+  {
+    "method": "PUT",
+    "path": "configuration-office/grade-levels/{id}/grading-schemes/{scheme_id}"
+  },
+  {
+    "method": "GET",
+    "path": "configuration-office/grade-levels/{id}/grading-scheme-changes"
   }
 ]
