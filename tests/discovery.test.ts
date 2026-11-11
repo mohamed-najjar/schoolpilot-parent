@@ -22,7 +22,22 @@ test("shares only in-flight discovery per access token; revocation is fresh afte
           finish = r;
         }),
     )
-    .mockResolvedValue(new Response(JSON.stringify({ items: [] })));
+    .mockImplementation(
+      async (url: string) =>
+        new Response(
+          JSON.stringify(
+            url.endsWith("/me/workspaces")
+              ? {
+                  school_id: "a",
+                  management: true,
+                  teacher: true,
+                  guardian: true,
+                  student: true,
+                }
+              : { items: [] },
+          ),
+        ),
+    );
   vi.stubGlobal("fetch", fetch);
   const a = schools(session("identity-a"));
   const overlap = schools(session("identity-a"));
@@ -36,7 +51,7 @@ test("shares only in-flight discovery per access token; revocation is fresh afte
   );
   expect(await a).toHaveLength(1);
   expect(await schools(session("identity-a"))).toEqual([]);
-  expect(fetch).toHaveBeenCalledTimes(2);
+  expect(fetch).toHaveBeenCalledTimes(3);
 });
 test("does not share identities or retain failed decisions", async () => {
   const fetch = vi

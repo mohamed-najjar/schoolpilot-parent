@@ -38,6 +38,8 @@ export async function GET(request: NextRequest) {
               name_ar: school.name_ar,
             };
             try {
+              if (school.portal_access === "unavailable")
+                throw new APIError(503);
               const page = await backend<{
                 items: components["schemas"]["FamilyChild"][];
                 next_cursor: string;

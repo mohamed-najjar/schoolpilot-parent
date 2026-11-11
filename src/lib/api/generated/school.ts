@@ -5264,6 +5264,66 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/me/workspaces": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Verified own identity in this deployment only, no caller-selected actor or child. Shared access fence and current account/actual local portal rules; professional profile/role validity, current supported guardian relationships and independent student capability. Actual database school_id permits routing verification. Entry booleans are observations, never resource grants. No central membership, token role claim, email match or cache confers a school role. Query without a narrowed workspace header for multi-portal school selection; every resource operation remains independently authorized.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["currentWorkspaceAccess"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reporting-office/reconciliation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current whole-school management only, shared access fence and final live check, transactional audit. Academic year and optional class must be local and consistent; dates inside that year, inclusive window at most366 days. Enrollment uses effective non-pending/non-cancelled episodes and placements on as_of; withdrawn/completed historical episodes still count on their valid dates. Attendance preserves frozen session/record populations in the requested window, separates day/lesson and open/submitted/approved; no expected-school-days denominator is invented. Academic roster slots are published assessments assessed in the window; current latest published revision per assessment/student is authoritative even with a pending amendment, with older published and pending revisions separate. Reports overlap the requested period and deduplicate published revisions per definition/student; definition revisions are distinct configured outputs. Class-wide assessments use frozen enrollment membership on assessed_on; reports use any matching class membership during their period. No cross-scale academic average, private note/value or person identifier is returned. Fixed36 metric rows are complete, not paginated. One SQL statement observes all counters consistently; generated_at is observation time, not historical database time travel.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolReconciliation"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reporting-office/reconciliation/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current whole-school management only, shared access fence and final live check, transactional audit. Academic year and optional class must be local and consistent; dates inside that year, inclusive window at most366 days. Enrollment uses effective non-pending/non-cancelled episodes and placements on as_of; withdrawn/completed historical episodes still count on their valid dates. Attendance preserves frozen session/record populations in the requested window, separates day/lesson and open/submitted/approved; no expected-school-days denominator is invented. Academic roster slots are published assessments assessed in the window; current latest published revision per assessment/student is authoritative even with a pending amendment, with older published and pending revisions separate. Reports overlap the requested period and deduplicate published revisions per definition/student; definition revisions are distinct configured outputs. Class-wide assessments use frozen enrollment membership on assessed_on; reports use any matching class membership during their period. No cross-scale academic average, private note/value or person identifier is returned. Fixed36 metric rows are complete, not paginated. One SQL statement observes all counters consistently; generated_at is observation time, not historical database time travel. Exports only fixed metric codes, validated UUID/date scope and counts as UTF-8 BOM CSV, SHA256 and exact bounded row_count. No configured names or private source records. Same filters, new independently authorized snapshot; not a replay of a previous observation.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["schoolReconciliationExport"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -9456,6 +9516,59 @@ export interface components {
             created_at: string;
             actor_name_en: string;
             actor_name_ar: string;
+        };
+        CurrentWorkspaceAccess: {
+            /** Format: uuid */
+            school_id: string;
+            management: boolean;
+            teacher: boolean;
+            guardian: boolean;
+            student: boolean;
+        };
+        SchoolReconciliation: {
+            scope: components["schemas"]["ReconciliationScope"];
+            /** Format: date-time */
+            generated_at: string;
+            items: components["schemas"]["ReconciliationMetric"][];
+        };
+        ReconciliationScope: {
+            academic_year: {
+                /** Format: uuid */
+                id: string;
+                code: string;
+                /** Format: date */
+                starts_on: string;
+                /** Format: date */
+                ends_on: string;
+            };
+            section: {
+                /** Format: uuid */
+                id: string;
+                code: string;
+            } | null;
+            /** Format: date */
+            as_of: string;
+            /** Format: date */
+            starts_on: string;
+            /** Format: date */
+            ends_on: string;
+        };
+        ReconciliationMetric: {
+            /** @enum {unknown} */
+            domain: "enrollment" | "attendance_day" | "attendance_lesson" | "academic";
+            code: string;
+            count: number;
+        };
+        SchoolReconciliationExport: {
+            scope: components["schemas"]["ReconciliationScope"];
+            /** Format: date-time */
+            generated_at: string;
+            filename: string;
+            /** @constant */
+            media_type: "text/csv;charset=utf-8";
+            row_count: number;
+            sha256: string;
+            data_base64: string;
         };
     };
     responses: never;
@@ -45979,6 +46092,360 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Delivery"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    currentWorkspaceAccess: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CurrentWorkspaceAccess"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolReconciliation: {
+        parameters: {
+            query: {
+                academic_year_id: string;
+                as_of: string;
+                starts_on: string;
+                ends_on: string;
+                section_id?: string;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolReconciliation"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    schoolReconciliationExport: {
+        parameters: {
+            query: {
+                academic_year_id: string;
+                as_of: string;
+                starts_on: string;
+                ends_on: string;
+                section_id?: string;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SchoolReconciliationExport"];
                 };
             };
             /** @description Request rejected */

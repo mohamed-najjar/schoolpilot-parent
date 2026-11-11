@@ -1218,5 +1218,17 @@
   {
     "method": "GET",
     "path": "communication-office/deliveries/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "me/workspaces"
+  },
+  {
+    "method": "GET",
+    "path": "reporting-office/reconciliation"
+  },
+  {
+    "method": "GET",
+    "path": "reporting-office/reconciliation/export"
   }
 ]
