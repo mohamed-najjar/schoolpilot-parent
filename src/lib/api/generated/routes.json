@@ -1194,5 +1194,13 @@
   {
     "method": "GET",
     "path": "access-office/student-access-history/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "audit-office/events"
+  },
+  {
+    "method": "GET",
+    "path": "audit-office/events/export"
   }
 ]
