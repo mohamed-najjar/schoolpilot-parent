@@ -3988,6 +3988,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/academic-office/assessments/{id}/grades": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current assessment/course staff scope, including campus management. Full staff grades and last editor metadata for independent moderation; never exposed through student/guardian projections. Existing grade schemas remain unchanged.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["officeAssessmentGrades"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/academic-office/grades/{id}/edits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current assessment/course staff scope only. Append-only draft edit actors and versions; paginated independently from existing grade snapshot history.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["academicGradeEdits"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/academic-office/report-cards": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current school-wide principal/administrator only, matching report publication authority. Search student names/numbers and definition titles; state/student/period filters apply before cursor pagination. Returns real immutable snapshots and workflow metadata; family readers retain their existing minimized published-only APIs.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["officeReportCards"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/academic-office/grades/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Current assessment/course staff scope only. Exact current grade version and responsibility metadata for review invalidation; no widening of student/guardian projections.
+         * @description Optional workspace narrows the current actor to that capability without changing stored roles or relationships. Teacher workspace requires a current teacher grant and active staff profile; student workspace requires the verified actor's own school-local student profile. Current resource assignments still apply. Omission retains combined API compatibility. Portals pin their workspace server-side.
+         */
+        get: operations["officeAssessmentGrade"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -7146,6 +7226,58 @@ export interface components {
             /** @enum {string} */
             status: "approved" | "rejected";
             note: string;
+        };
+        OfficeAssessmentGrade: {
+            /** Format: uuid */
+            student_id: string;
+            /** @enum {string} */
+            state: "graded" | "missing" | "excused" | "incomplete" | "exempt";
+            value: string;
+            band: string;
+            rubric: {
+                code: string;
+                value: string;
+            }[];
+            submission_id: string | null;
+            comment_en: string;
+            comment_ar: string;
+            private_note: string;
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            assessment_id: string;
+            revision: number;
+            supersedes_id: string | null;
+            /** @enum {string} */
+            status: "draft" | "review" | "approved" | "published";
+            reason: string;
+            /** Format: uuid */
+            author_id: string;
+            approved_by: string | null;
+            published_by: string | null;
+            version: number;
+            /** Format: date-time */
+            created_at: string;
+            published_at: string | null;
+            last_editor_id: string | null;
+            actor_involved: boolean;
+            independent_approval: boolean;
+            student_number: string;
+            first_name: string;
+            last_name: string;
+            first_name_ar: string;
+            last_name_ar: string;
+        };
+        AcademicGradeEdit: {
+            /** Format: uuid */
+            grade_id: string;
+            version: number;
+            /** Format: uuid */
+            actor_id: string;
+            /** Format: date-time */
+            created_at: string;
+            actor_name_en: string;
+            actor_name_ar: string;
         };
     };
     responses: never;
@@ -35575,6 +35707,490 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["AttendanceHistory"];
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    officeAssessmentGrades: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["OfficeAssessmentGrade"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    academicGradeEdits: {
+        parameters: {
+            query?: {
+                after_version?: number;
+                limit?: number;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["AcademicGradeEdit"][];
+                        next_version: number;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    officeReportCards: {
+        parameters: {
+            query?: {
+                after?: string;
+                limit?: number;
+                student_id?: string;
+                period_id?: string;
+                status?: "draft" | "review" | "approved" | "published";
+                q?: string;
+            };
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        items: components["schemas"]["ReportCard"][];
+                        next_cursor: string;
+                    };
+                };
+            };
+            /** @description Request rejected */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            412: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            429: {
+                headers: {
+                    /** @description Seconds until this rate-limit window resets. */
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+            /** @description Request rejected */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Problem"];
+                };
+            };
+        };
+    };
+    officeAssessmentGrade: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-SchoolPilot-Workspace"?: "teacher" | "guardian" | "student" | "management";
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OfficeAssessmentGrade"];
                 };
             };
             /** @description Request rejected */

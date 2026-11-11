@@ -950,5 +950,21 @@
   {
     "method": "GET",
     "path": "attendance-office/records/{id}/history"
+  },
+  {
+    "method": "GET",
+    "path": "academic-office/assessments/{id}/grades"
+  },
+  {
+    "method": "GET",
+    "path": "academic-office/grades/{id}/edits"
+  },
+  {
+    "method": "GET",
+    "path": "academic-office/report-cards"
+  },
+  {
+    "method": "GET",
+    "path": "academic-office/grades/{id}"
   }
 ]
