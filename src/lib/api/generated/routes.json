@@ -1202,5 +1202,21 @@
   {
     "method": "GET",
     "path": "audit-office/events/export"
+  },
+  {
+    "method": "GET",
+    "path": "assignment-recipients/{id}/accommodations"
+  },
+  {
+    "method": "POST",
+    "path": "communication-office/announcements"
+  },
+  {
+    "method": "GET",
+    "path": "communication-office/announcements/{id}"
+  },
+  {
+    "method": "GET",
+    "path": "communication-office/deliveries/{id}"
   }
 ]
