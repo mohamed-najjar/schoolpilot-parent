@@ -898,5 +898,57 @@
   {
     "method": "GET",
     "path": "onboarding/readiness"
+  },
+  {
+    "method": "GET",
+    "path": "timetable-office/rooms"
+  },
+  {
+    "method": "GET",
+    "path": "timetable-office/periods"
+  },
+  {
+    "method": "GET",
+    "path": "timetable-office/rules"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/rules/{id}/preview"
+  },
+  {
+    "method": "POST",
+    "path": "timetable/rules/{id}/publish"
+  },
+  {
+    "method": "PUT",
+    "path": "timetable/rules/{id}"
+  },
+  {
+    "method": "POST",
+    "path": "lessons/{id}/reschedule"
+  },
+  {
+    "method": "GET",
+    "path": "lessons/{id}/office-history"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/sessions"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/corrections"
+  },
+  {
+    "method": "POST",
+    "path": "attendance-sessions/{id}/review"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-sessions/{id}/reviews"
+  },
+  {
+    "method": "GET",
+    "path": "attendance-office/records/{id}/history"
   }
 ]
