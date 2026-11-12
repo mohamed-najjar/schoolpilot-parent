@@ -54,7 +54,7 @@ See [architecture](docs/phase6c/FRONTEND_ARCHITECTURE.md),
 [SSO and revocation](docs/phase6c/IDENTITY_AND_SSO.md),
 [test report](docs/phase6c/TEST_REPORT.md) and
 [remaining gaps](docs/phase6c/REMAINING_GAPS.md).
-Stop before Phase 6D. No production-readiness claim.
+No production-readiness claim.
 
 ## Phase 8 onboarding and commercial foundation
 
@@ -63,3 +63,17 @@ Configure the fixed public portal origins using `.env.example`; keep populated
 private environments out of Git. Existing authentication, RTL/theme and resource
 authorization boundaries remain. Final local browser/visual verification passes;
 production readiness is not claimed.
+
+## Current Phase9A workflows
+
+Attendance includes authorized multi-day absence reports and review history;
+a saved explanation does not change the teacher's mark automatically. Student
+homework/progress/results remain publication- and relationship-scoped. Restricting
+one child or removing a professional role preserves other current family rights.
+Notification processing and external delivery confirmation remain distinct.
+
+See the [current school-office manual](https://github.com/mohamed-najjar/schoolpilot/blob/main/docs/phase9a/USER_WORKFLOWS.md) and
+[executed verification ledger](https://github.com/mohamed-najjar/schoolpilot/blob/main/docs/phase9a/TEST_REPORT.md). Retained older development
+runtimes that cannot supply current workspace metadata are explicitly unavailable;
+upgrades must be intentional. Synthetic acceptance does not approve real school
+data or production use.
