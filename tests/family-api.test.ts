@@ -65,3 +65,50 @@ test("browser cannot add an arbitrary school endpoint to family discovery", asyn
   expect(response.status).toBe(403);
   expect(mocks.backend).not.toHaveBeenCalled();
 });
+
+test("retains an empty trusted affiliation after local guardian revocation without querying child data or offering a child", async () => {
+  mocks.list.mockResolvedValue([
+    {
+      id: "b",
+      code: "B",
+      name_en: "B",
+      name_ar: "ب",
+      endpoint_url: "https://b.school.test",
+      portal_access: "denied",
+    },
+  ]);
+  const response = await GET(
+    new NextRequest("http://localhost:3002/api/family"),
+  );
+  expect(response.status).toBe(200);
+  const data = await response.json();
+  expect(data.schools).toEqual([
+    {
+      school: { id: "b", code: "B", name_en: "B", name_ar: "ب" },
+      items: [],
+      next_cursor: "",
+    },
+  ]);
+  expect(data.schools.flatMap((s: { items: unknown[] }) => s.items)).toEqual(
+    [],
+  );
+  expect(mocks.backend).not.toHaveBeenCalled();
+  expect(response.headers.get("Cache-Control")).toBe("no-store");
+});
+test("denies explicit paging into a school with no current family capability", async () => {
+  mocks.list.mockResolvedValue([
+    {
+      id: "b",
+      code: "B",
+      name_en: "B",
+      name_ar: "ب",
+      endpoint_url: "https://b.school.test",
+      portal_access: "denied",
+    },
+  ]);
+  const response = await GET(
+    new NextRequest("http://localhost:3002/api/family?school_id=b"),
+  );
+  expect(response.status).toBe(403);
+  expect(mocks.backend).not.toHaveBeenCalled();
+});

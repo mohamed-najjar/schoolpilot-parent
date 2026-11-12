@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 export async function GET(request: NextRequest) {
   try {
     const { id, session } = await currentSession();
-    const available = await schools(session);
+    const available = await schools(session, true);
     const schoolID = request.nextUrl.searchParams.get("school_id"),
       after = request.nextUrl.searchParams.get("after") || "";
     if (
@@ -20,7 +20,10 @@ export async function GET(request: NextRequest) {
       (after && !/^[a-f0-9-]{36}$/i.test(after))
     )
       return NextResponse.json({ code: "invalid" }, { status: 400 });
-    if (schoolID && !available.some((s) => s.id === schoolID))
+    if (
+      schoolID &&
+      !available.some((s) => s.id === schoolID && s.portal_access !== "denied")
+    )
       throw new APIError(403);
     const candidates = schoolID
       ? available.filter((s) => s.id === schoolID)
@@ -37,6 +40,10 @@ export async function GET(request: NextRequest) {
               name_en: school.name_en,
               name_ar: school.name_ar,
             };
+            // Preserve the aggregate's empty trusted reference without claiming
+            // a family role, offering a child, or requesting private tenant data.
+            if (school.portal_access === "denied")
+              return { school: publicSchool, items: [], next_cursor: "" };
             try {
               if (school.portal_access === "unavailable")
                 throw new APIError(503);

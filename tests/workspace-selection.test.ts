@@ -99,3 +99,25 @@ test("selected-school authorization never probes another school or follows arbit
     status: 403,
   });
 });
+
+test("keeps empty trusted family references separate from selectable current-role schools during overlapping discovery", async () => {
+  const fetch = vi.fn(async (url: string) =>
+    url.startsWith("http://control.test")
+      ? reply({ items: [a] })
+      : reply(capabilities("a", false)),
+  );
+  vi.stubGlobal("fetch", fetch);
+  const [choices, references] = await Promise.all([
+    schools(session),
+    schools(session, true),
+  ]);
+  expect(choices).toEqual([]);
+  expect(references).toEqual([{ ...a, portal_access: "denied" }]);
+  expect(
+    fetch.mock.calls.every(
+      ([url]) =>
+        url === "http://control.test/api/v1/schools" ||
+        url === "http://a.test/api/v1/me/workspaces",
+    ),
+  ).toBe(true);
+});

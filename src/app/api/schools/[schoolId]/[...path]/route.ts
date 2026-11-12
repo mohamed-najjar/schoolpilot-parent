@@ -18,6 +18,7 @@ async function handle(
   request: NextRequest,
   context: { params: Promise<{ schoolId: string; path: string[] }> },
 ) {
+  let resourceRead = false;
   try {
     const { schoolId, path } = await context.params;
     const route = path.join("/");
@@ -34,6 +35,11 @@ async function handle(
       !validOrigin(request, serverConfig().origin)
     )
       return NextResponse.json({ code: "forbidden" }, { status: 403 });
+    resourceRead =
+      request.method === "GET" &&
+      path.some((part) =>
+        /^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i.test(part),
+      );
     const { session } = await currentSession();
     const school = await authorizedSchool(session, schoolId);
     const base = new URL(school.endpoint_url).origin;
@@ -102,11 +108,16 @@ async function handle(
       headers: outHeaders,
     });
   } catch (e) {
+    // A vanished local family capability must conceal protected resources.
+    // Central-school, route and service denials retain their own status; no
+    // downstream request bypasses the current-capability check.
     const status =
       e instanceof SessionExpired
         ? 401
         : e instanceof APIError
-          ? e.status
+          ? e.status === 403 && e.reason === "local_capability" && resourceRead
+            ? 404
+            : e.status
           : 503;
     return NextResponse.json(
       {
@@ -117,7 +128,9 @@ async function handle(
               ? "session_expired"
               : status === 403
                 ? "forbidden"
-                : "unavailable",
+                : status === 404
+                  ? "not_found"
+                  : "unavailable",
       },
       {
         status,

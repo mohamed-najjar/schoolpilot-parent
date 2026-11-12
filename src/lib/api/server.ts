@@ -3,12 +3,13 @@ import type { components as Control } from "./generated/control";
 import type { Session } from "@/lib/auth/session";
 import { serverConfig, allowedSchoolEndpoint } from "@/config/server";
 export type DiscoveredSchool = Control["schemas"]["DiscoveredSchool"] & {
-  portal_access?: "available" | "unavailable";
+  portal_access?: "available" | "unavailable" | "denied";
 };
 export class APIError extends Error {
   constructor(
     public status: number,
     public retryAfter?: string,
+    public reason?: "local_capability",
   ) {
     super("Backend request failed");
   }
@@ -115,25 +116,36 @@ async function localAccess(
     return { ...school, portal_access: "unavailable" };
   }
 }
-export function schools(session: Session) {
-  const key = session.accessToken;
+// Empty references are aggregate compatibility metadata, never selectable roles.
+export function schools(session: Session, includeEmptyReferences = false) {
+  const key = JSON.stringify([session.accessToken, includeEmptyReferences]);
   const pending = discovering.get(key);
   if (pending) return pending;
-  const task = discover(session).finally(() => discovering.delete(key));
+  const task = discover(session, includeEmptyReferences).finally(() =>
+    discovering.delete(key),
+  );
   discovering.set(key, task);
   return task;
 }
-async function discover(session: Session) {
+async function discover(session: Session, includeEmptyReferences: boolean) {
   const choices = await candidates(session),
     result: DiscoveredSchool[] = [];
   for (let i = 0; i < choices.length; i += 4) {
     const group = await Promise.all(
       choices.slice(i, i + 4).map((s) =>
-        localAccess(session, s).catch((e) => {
-          if (e instanceof APIError && e.status === 429)
-            return { ...s, portal_access: "unavailable" as const };
-          throw e;
-        }),
+        localAccess(session, s)
+          .then(
+            (current) =>
+              current ??
+              (includeEmptyReferences
+                ? { ...s, portal_access: "denied" as const }
+                : null),
+          )
+          .catch((e) => {
+            if (e instanceof APIError && e.status === 429)
+              return { ...s, portal_access: "unavailable" as const };
+            throw e;
+          }),
       ),
     );
     result.push(...group.filter((s): s is DiscoveredSchool => s !== null));
@@ -145,7 +157,7 @@ export async function authorizedSchool(session: Session, id: string) {
   const candidate = (await candidates(session)).find((s) => s.id === id);
   if (!candidate) throw new APIError(403);
   const school = await localAccess(session, candidate);
-  if (!school) throw new APIError(403);
+  if (!school) throw new APIError(403, undefined, "local_capability");
   if (school.portal_access === "unavailable") throw new APIError(503);
   return school;
 }
