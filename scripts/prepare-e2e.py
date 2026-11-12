@@ -45,7 +45,11 @@ call(teacher_token,'POST','learning-content/'+material['id']+'/publish',version=
 policy=call(adminA,'GET','grading-policies/'+f['policy_id']);definition=create(adminA,'report-definitions',{'period_id':f['period_id'],'program_id':policy['program_id'],'code':run,'revision':1,'title_en':'Family published term report','title_ar':'تقرير فصلي منشور للعائلة','labels_en':{},'labels_ar':{},'include_attendance':True,'allow_incomplete':True,'student_visible':True,'guardian_visible':True,'approval_role':'either','publication_role':'either'},key='report-definition')
 for i,action in enumerate(['review','approve','publish']):call(adminA,'POST','reporting-periods/'+f['period_id']+'/transition',{'action':action},version=i+1)
 report=create(adminA,'report-cards',{'definition_id':definition['id'],'student_id':f['student_id'],'course_ids':[f['course_id']]},key='family-report')
-for i,action in enumerate(['review','approve','publish']):call(adminA,'POST','report-cards/'+report['id']+'/transition',{'action':action},version=i+1)
+# The report author cannot approve their own snapshot. The existing teacher
+# identity has an independently granted principal role in this synthetic fixture.
+for i,action in enumerate(['review','approve','publish']):
+ actor = teacher_token if action == 'approve' else adminA
+ call(actor,'POST','report-cards/'+report['id']+'/transition',{'action':action},version=i+1)
 context=call(teacher_token,'GET','guardian/children/'+f['student_id'],workspace='guardian')
 yearA=next(c['academic_year_id'] for c in context['courses'] if c['id']==f['course_id'])
 private_period=create(adminA,'reporting-periods',{'academic_year_id':yearA,'code':run+'-private','name_en':'Private draft period','name_ar':'فترة غير منشورة','kind':'term','starts_on':day.isoformat(),'ends_on':(day+datetime.timedelta(days=20)).isoformat(),'approval_role':'either'},key='private-period')['id']
